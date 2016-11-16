@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#00897B</color>
+    <color name="colorPrimaryDark">#00695C</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="blue_accent500">#03A9F4</color>
+    <color name="black_alpha_12">#1F000000</color>
+    <color name="black_alpha_30">#4D000000</color>
+    <color name="gray_alpha">#c2c2c2</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="red1">#990000</color>
+    <color name="green1">#009900</color>
+    <color name="blue1">#000099</color>
+    <color name="orange1">#FF9900</color>
+    <color name="bg_page">#EBEBEB</color>
+
+    <color name="chat_warning_color">#6999</color>
+    <color name="black">#ff000000</color>
+
+    <color name="add_sticker_tab">#e3a140</color>
+    <color name="message_color">#444</color>
+    <color name="chat_profile_background">#b0d0f9</color>
+    <color name="white_transparent">#40ffffff</color>
+    <color name="tab_selected">#e0e0e0</color>
+    <color name="tab_default">#f7f7f7</color>
+
+    <color name="profile1">#f0878c</color>
+    <color name="profile2">#76bbe8</color>
+    <color name="profile3">#bace9b</color>
+    <color name="profile4">#f0878c</color>
+    <color name="profile5">#76bbe8</color>
+    <color name="profile6">#c198f0</color>
+    <color name="profile7">#90d78c</color>
+    <color name="profile8">#ddd8de</color>
+
+    <!-- Event item color -->
+    <color name="event_fragment_bg">#d3d6db</color>
+    <color name="event_item_bg">#ffffff</color>
+    <color name="event_item_border">#c2c3c8</color>
+    <color name="event_link">#0a80d1</color>
+    <color name="event_timestamp">#a0a3a7</color>
+
+    <!-- Toolbar -->
+    <color name="ToolbarBackgroundColor">#f9f9f9</color>
 </resources>
