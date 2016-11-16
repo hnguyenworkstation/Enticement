@@ -1,17 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_spy_day"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.greencode.enticement_android.Activities.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/mainact.appbarview"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mainact.toolbar"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:titleTextAppearance="@style/ToolbarTextTitle"
+            app:titleTextAppearance="@style/ToolbarTextTitle" />
+
+        <android.support.design.widget.TabLayout
+            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:id="@+id/mainact.tablayout"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_below="@+id/mainact.appbarview"
+        android:id="@+id/mainact.root_layout"
+        android:background="@color/white"
+        android:backgroundTint="#afFFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.greencode.enticement_android.Models.CustomViewpager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainact.ViewPager">
+        </com.greencode.enticement_android.Models.CustomViewpager>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spyFloatBtn"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_dialog_email"/>
+
+        <include layout="@layout/fab_transform_layout" />
+    </FrameLayout>
 </RelativeLayout>

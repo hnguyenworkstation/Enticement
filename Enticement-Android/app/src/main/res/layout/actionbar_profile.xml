@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageButton
+        android:id="@+id/actionbar.mapbutton"
+        android:background="@drawable/selector_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_black"
+        android:layout_marginStart="@dimen/actionbar_margin"
+        android:layout_marginEnd="@dimen/actionbar_margin"/>
+
+    <ImageView
+        android:id="@+id/actionbar.profileimage"
+        android:layout_width="@dimen/actionbar_size"
+        android:layout_height="@dimen/actionbar_size"
+        android:layout_marginStart="@dimen/actionbar_margin_profile"
+        android:src="@drawable/logo_image"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/actionbar_margin_profile">
+
+        <TextView
+            android:id="@+id/actionbar.profilename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/actionbar_username_size"
+            android:text="Hung Nguyen"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/actionbar_margin"
+            android:id="@+id/actionbar.nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/actionbar_nickname_size"
+            android:textAllCaps="false"
+            android:text="Admin"/>
+    </LinearLayout>
+
+</LinearLayout>
