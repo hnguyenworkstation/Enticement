@@ -28,9 +28,14 @@ import android.widget.Toast;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
+import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
+import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
+import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
 
-public class MainActivity extends EnticementActivity implements View.OnClickListener {
+public class MainActivity extends EnticementActivity
+        implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener
+                , ListChatroomFragment.OnListFragmentInteractionListener {
     private ViewPager mViewPager;
 
     private View rootLayout;
@@ -60,8 +65,11 @@ public class MainActivity extends EnticementActivity implements View.OnClickList
     private final int CHATROOM_POS = 1;
 
     private final int[] mTabsIcons = {
-            R.drawable.ic_add_chat,
-            R.drawable.ic_add_chat,
+            R.drawable.ic_home_white_24dp,
+            R.drawable.ic_group_white_24dp,
+            R.drawable.ic_chat_white_24dp,
+            R.drawable.ic_update_white_24dp,
+            R.drawable.ic_more_horiz_white_24dp
     };
 
     @Override
@@ -198,8 +206,8 @@ public class MainActivity extends EnticementActivity implements View.OnClickList
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
-        //adapter.addFragment(new EventAroundFragment(), "EVAround");
-        //adapter.addFragment(new ListChatRoomFragment(), "Messages");
+        adapter.addFragment(new FeaturedFragment(), "Featured");
+        adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -294,6 +302,11 @@ public class MainActivity extends EnticementActivity implements View.OnClickList
         fab_3.setLayoutParams(layoutParams3);
         fab_3.startAnimation(closeFabAnim3);
         fab_3.setClickable(false);
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 }

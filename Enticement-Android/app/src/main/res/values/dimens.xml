@@ -60,5 +60,6 @@
     <!-- My profile dimens -->
     <dimen name="profile_avatar_size">88dp</dimen>
     <dimen name="profile_elevation">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>

@@ -65,10 +65,10 @@
 
                 <com.cengalabs.flatui.views.FlatEditText
                     android:layout_marginTop="@dimen/margin_48"
-                    android:id="@+id/fed_phone"
+                    android:id="@+id/reg_emailinput"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_48"
-                    android:drawableLeft="@drawable/ic_smiley"
+                    android:drawableLeft="@drawable/ic_email_white_24dp"
                     android:drawablePadding="@dimen/margin_8"
                     android:hint="@string/prompt_email"
                     android:inputType="textAutoComplete"
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_48"
                     android:layout_marginTop="@dimen/margin_24"
-                    android:drawableLeft="@drawable/ic_smiley"
+                    android:drawableLeft="@drawable/ic_vpn_key_white_24dp"
                     android:drawablePadding="@dimen/margin_8"
                     android:hint="@string/prompt_password"
                     android:inputType="textPassword"
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_48"
                     android:layout_marginTop="@dimen/margin_24"
-                    android:drawableLeft="@drawable/ic_smiley"
+                    android:drawableLeft="@drawable/ic_vpn_key_white_24dp"
                     android:drawablePadding="@dimen/margin_8"
                     android:hint="@string/prompt_repassword"
                     android:inputType="textPassword"
@@ -118,7 +118,7 @@
                     flatui:fl_theme="@array/deep"/>
 
                 <Button
-                    android:id="@+id/email_sign_in_button"
+                    android:id="@+id/register.regbtn"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
