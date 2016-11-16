@@ -4,10 +4,23 @@
     android:id="@+id/fragment_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.greencode.enticement_android.ViewFragments.LoginFragment"
-    xmlns:font="http://schemas.android.com/apk/com.greencode.enticement_android"
-    font:typeface="Roboto-Regular.ttf"
-    >
+    android:theme="@style/Theme.Transparent"
+    tools:context="com.greencode.enticement_android.ViewFragments.RegisterFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/reg_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"/>
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,7 +33,7 @@
 
         <!-- Login progress -->
         <ProgressBar
-            android:id="@+id/login_progress"
+            android:id="@+id/register.progress"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,16 +42,15 @@
             android:visibility="gone" />
 
         <ScrollView
-            android:id="@+id/login_form"
+            android:id="@+id/register.form"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/email_login_form"
+                android:id="@+id/email_register_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_marginTop="10dp"
@@ -46,15 +58,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:text="LOGIN"
+                    android:text="REGISTER"
                     android:textAllCaps="true"
                     android:textSize="30sp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold"/>
 
                 <com.cengalabs.flatui.views.FlatEditText
                     android:layout_marginTop="@dimen/margin_48"
-                    android:id="@+id/login.emailinput"
+                    android:id="@+id/fed_phone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_48"
                     android:drawableLeft="@drawable/ic_smiley"
@@ -71,13 +82,31 @@
                     flatui:fl_theme="@array/deep"/>
 
                 <com.cengalabs.flatui.views.FlatEditText
-                    android:id="@+id/login.passwordinput"
+                    android:id="@+id/register.passwordinput"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_48"
                     android:layout_marginTop="@dimen/margin_24"
                     android:drawableLeft="@drawable/ic_smiley"
                     android:drawablePadding="@dimen/margin_8"
                     android:hint="@string/prompt_password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="@dimen/margin_16"
+                    android:paddingRight="@dimen/margin_16"
+                    android:textColorHint="@color/deep_light"
+                    android:textSize="@dimen/font_large"
+                    flatui:fl_borderWidth="1dp"
+                    flatui:fl_cornerRadius="1dp"
+                    flatui:fl_fieldStyle="fl_transparent"
+                    flatui:fl_theme="@array/deep"/>
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/register.repasswordinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_48"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:drawableLeft="@drawable/ic_smiley"
+                    android:drawablePadding="@dimen/margin_8"
+                    android:hint="@string/prompt_repassword"
                     android:inputType="textPassword"
                     android:paddingLeft="@dimen/margin_16"
                     android:paddingRight="@dimen/margin_16"
@@ -100,39 +129,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textAllCaps="false"/>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/register_btn"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_gravity="end"
-                        android:gravity="center"
-                        android:text="@string/register_link"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="10sp" />
-
-                    <Button
-                        android:id="@+id/forget_password_link"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_gravity="start|left"
-                        android:gravity="center"
-                        android:text="@string/register_link"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="10sp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
-
-                </RelativeLayout >
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
