@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00897B</color>
-    <color name="colorPrimaryDark">#00695C</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorPrimary">#2d3845</color>
+    <color name="colorPrimaryDark">#232b35</color>
+    <color name="colorAccent">#2ab081</color>
 
     <color name="blue_accent500">#03A9F4</color>
     <color name="black_alpha_12">#1F000000</color>
@@ -15,6 +15,8 @@
     <color name="blue1">#000099</color>
     <color name="orange1">#FF9900</color>
     <color name="bg_page">#EBEBEB</color>
+    <color name="dark_green">#1e7d5b</color>
+    <color name="darker_green">#124c38</color>
 
     <color name="chat_warning_color">#6999</color>
     <color name="black">#ff000000</color>
