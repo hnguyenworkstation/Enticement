@@ -1,13 +1,60 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
     tools:context="com.greencode.enticement_android.ViewFragments.PeopleAroundFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/pfragment.segmentview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center">
 
-</FrameLayout>
+        <info.hoang8f.android.segmented.SegmentedGroup
+            android:id="@+id/pfragment.segmented"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_10"
+            android:orientation="horizontal"
+            android:gravity="center"
+            segmentedgroup:sc_border_width="1dp"
+            segmentedgroup:sc_corner_radius="5dp"
+            segmentedgroup:sc_tint_color="@color/colorAccent">
+
+            <RadioButton
+                android:id="@+id/pfragment.peoplesegment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:text="People"
+                style="@style/RadioButton" />
+
+            <RadioButton
+                android:id="@+id/pfragment.groupsegment"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:text="Group"
+                style="@style/RadioButton" />
+        </info.hoang8f.android.segmented.SegmentedGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pfragment.segmentview">
+
+        <FrameLayout
+            android:id="@+id/pfragment.container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+</RelativeLayout>
