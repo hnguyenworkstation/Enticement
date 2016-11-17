@@ -41,11 +41,11 @@
         android:layout_height="match_parent"
         >
 
-        <com.greencode.enticement_android.Models.CustomViewpager
+        <com.greencode.enticement_android.UI.CustomViewpager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/mainact.ViewPager">
-        </com.greencode.enticement_android.Models.CustomViewpager>
+        </com.greencode.enticement_android.UI.CustomViewpager>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"

@@ -198,7 +198,7 @@ public class MainActivity extends EnticementActivity
                 int[] startingLocation = new int[2];
                 v.getLocationOnScreen(startingLocation);
                 startingLocation[0] += v.getWidth() / 2;
-                // MyProfileActivity.startUserProfileFromLocation(startingLocation, SpyDayActivity.this);
+                MyProfileActivity.startUserProfileFromLocation(startingLocation, MainActivity.this);
                 overridePendingTransition(0, 0);
             }
         }, 200);
