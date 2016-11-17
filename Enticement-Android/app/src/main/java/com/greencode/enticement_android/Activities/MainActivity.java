@@ -32,10 +32,12 @@ import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
+import com.greencode.enticement_android.ViewFragments.UpdatesFragment;
 
 public class MainActivity extends EnticementActivity
-        implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener
-                , ListChatroomFragment.OnListFragmentInteractionListener {
+        implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener,
+            ListChatroomFragment.OnListFragmentInteractionListener,
+            UpdatesFragment.OnListFragmentInteractionListener {
     private ViewPager mViewPager;
 
     private View rootLayout;
@@ -208,6 +210,7 @@ public class MainActivity extends EnticementActivity
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
         adapter.addFragment(new FeaturedFragment(), "Featured");
         adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
+        adapter.addFragment(new UpdatesFragment(), "Updates");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
