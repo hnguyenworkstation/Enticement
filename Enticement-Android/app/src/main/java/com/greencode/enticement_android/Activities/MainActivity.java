@@ -2,7 +2,6 @@ package com.greencode.enticement_android.Activities;
 
 import android.animation.Animator;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -10,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -34,15 +32,17 @@ import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
 import com.greencode.enticement_android.ViewFragments.MoreFragment;
+import com.greencode.enticement_android.ViewFragments.AroundFragment;
 import com.greencode.enticement_android.ViewFragments.PeopleAroundFragment;
 import com.greencode.enticement_android.ViewFragments.UpdatesFragment;
 
 public class MainActivity extends EnticementActivity
         implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener,
-            PeopleAroundFragment.OnFragmentInteractionListener,
+            AroundFragment.OnFragmentInteractionListener,
             ListChatroomFragment.OnListFragmentInteractionListener,
             UpdatesFragment.OnListFragmentInteractionListener,
-            MoreFragment.OnFragmentInteractionListener {
+            MoreFragment.OnFragmentInteractionListener,
+            PeopleAroundFragment.OnListFragmentInteractionListener {
     private ViewPager mViewPager;
 
     private View rootLayout;
@@ -214,7 +214,7 @@ public class MainActivity extends EnticementActivity
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
         adapter.addFragment(new FeaturedFragment(), "Featured");
-        adapter.addFragment(new PeopleAroundFragment(), "Around");
+        adapter.addFragment(new AroundFragment(), "Around");
         adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
         adapter.addFragment(new UpdatesFragment(), "Updates");
         adapter.addFragment(new MoreFragment(), "More");
