@@ -3,6 +3,7 @@ package com.greencode.enticement_android.Activities;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -32,12 +33,16 @@ import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
+import com.greencode.enticement_android.ViewFragments.MoreFragment;
+import com.greencode.enticement_android.ViewFragments.PeopleAroundFragment;
 import com.greencode.enticement_android.ViewFragments.UpdatesFragment;
 
 public class MainActivity extends EnticementActivity
         implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener,
+            PeopleAroundFragment.OnFragmentInteractionListener,
             ListChatroomFragment.OnListFragmentInteractionListener,
-            UpdatesFragment.OnListFragmentInteractionListener {
+            UpdatesFragment.OnListFragmentInteractionListener,
+            MoreFragment.OnFragmentInteractionListener {
     private ViewPager mViewPager;
 
     private View rootLayout;
@@ -209,8 +214,10 @@ public class MainActivity extends EnticementActivity
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
         adapter.addFragment(new FeaturedFragment(), "Featured");
+        adapter.addFragment(new PeopleAroundFragment(), "Around");
         adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
         adapter.addFragment(new UpdatesFragment(), "Updates");
+        adapter.addFragment(new MoreFragment(), "More");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -310,6 +317,11 @@ public class MainActivity extends EnticementActivity
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
