@@ -2,7 +2,9 @@ package com.greencode.enticement_android.ViewFragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.MyUpdatesRecyclerViewAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
@@ -27,6 +30,9 @@ public class UpdatesFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private SwipeRefreshLayout mSwipeRefLayout;
+    private RecyclerView mRecycler;
+    private MyUpdatesRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,17 +65,31 @@ public class UpdatesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_updates_list, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyUpdatesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        Context context = view.getContext();
+        mRecycler = (RecyclerView) view.findViewById(R.id.updates_recycler);
+        if (mColumnCount <= 1) {
+            mRecycler.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            mRecycler.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+
+        mAdapter = new MyUpdatesRecyclerViewAdapter(DummyContent.ITEMS, mListener);
+        mRecycler.setAdapter(mAdapter);
+
+        mSwipeRefLayout = (SwipeRefreshLayout) view.findViewById(R.id.updates_swiperef);
+        mSwipeRefLayout.setColorSchemeResources(R.color.orange1, R.color.green1, R.color.blue1);
+        mSwipeRefLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppUtils.showToast("Refreshed", getContext());
+                        mSwipeRefLayout.setRefreshing(false);
+                    }
+                }, 1200);
+            }
+        });
         return view;
     }
 
