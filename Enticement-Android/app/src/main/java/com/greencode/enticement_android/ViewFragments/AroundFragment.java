@@ -86,6 +86,7 @@ public class AroundFragment extends Fragment implements
     }
 
     private void initLayoutView() {
+        mFragTransition = getFragmentManager().beginTransaction();
         if (mPeopleRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
             mFragTransition.replace(R.id.around_container, mPeopleAround);
@@ -104,6 +105,13 @@ public class AroundFragment extends Fragment implements
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onViewStateRestored (Bundle savedInstanceState)
+    {
+        super.onViewStateRestored (savedInstanceState);
+        initLayoutView();
     }
 
     @Override
