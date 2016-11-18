@@ -9,6 +9,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -83,6 +86,32 @@ public class FeaturedFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.list_chatroom_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menuchatroom_search:
+                AppUtils.showToast("Search Clicked", getContext());
+                return true;
+            case R.id.menuchatroom_add:
+                try {
+                    AppUtils.showToast("Add Clicked", getContext());
+                } catch (Exception e) {
+
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

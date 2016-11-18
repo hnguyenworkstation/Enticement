@@ -13,7 +13,7 @@
         android:gravity="center">
 
         <info.hoang8f.android.segmented.SegmentedGroup
-            android:id="@+id/around.segmented"
+            android:id="@+id/around.segmentedgroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_10"

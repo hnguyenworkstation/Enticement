@@ -30,6 +30,7 @@ import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
+import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
 import com.greencode.enticement_android.ViewFragments.MoreFragment;
 import com.greencode.enticement_android.ViewFragments.AroundFragment;
@@ -42,7 +43,8 @@ public class MainActivity extends EnticementActivity
             ListChatroomFragment.OnListFragmentInteractionListener,
             UpdatesFragment.OnListFragmentInteractionListener,
             MoreFragment.OnFragmentInteractionListener,
-            PeopleAroundFragment.OnListFragmentInteractionListener {
+            PeopleAroundFragment.OnListFragmentInteractionListener,
+            GroupAroundFragment.OnListFragmentInteractionListener {
     private ViewPager mViewPager;
 
     private View rootLayout;
