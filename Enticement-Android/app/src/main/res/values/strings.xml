@@ -41,7 +41,6 @@
     <string name="chatroom.inputhint">Write a message...</string>
     <string name="chatroom.istyping">is typing...</string>
 
-
     <!-- Endpoint String-->
     <string name="DB_users">Users</string>
     <string name="SR_profileImage">ProfileImages</string>
@@ -74,4 +73,8 @@
         <item>http://scontent-a-fra.cdninstagram.com/hphotos-xaf1/t51.2885-15/s306x306/e15/10899123_922231267802027_1123900984_n.jpg</item>
         <item>http://scontent-b-fra.cdninstagram.com/hphotos-xaf1/t51.2885-15/s306x306/e15/10899087_405295322969722_20422376_n.jpg</item>
     </string-array>
+
+    <!-- Map String -->
+    <string name="dropoff">Drop me here!</string>
+    <string name="map_title">Location</string>
 </resources>
