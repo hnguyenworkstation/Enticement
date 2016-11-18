@@ -88,13 +88,13 @@ public class AroundFragment extends Fragment implements
     private void initLayoutView() {
         if (mPeopleRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
-            mFragTransition.add(R.id.around_container, mPeopleAround);
+            mFragTransition.replace(R.id.around_container, mPeopleAround);
             mFragTransition.commit();
         }
 
         if (mGroupRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_right, R.anim.fade_in_from_left);
-            mFragTransition.add(R.id.around_container, mGroupAround, "PeopleFragment");
+            mFragTransition.replace(R.id.around_container, mGroupAround, "PeopleFragment");
             mFragTransition.commit();
         }
     }
@@ -134,12 +134,12 @@ public class AroundFragment extends Fragment implements
         switch (checkedId) {
             case R.id.around_peoplerad:
                 mFragTransition.setCustomAnimations(R.anim.fade_out_to_right, R.anim.fade_in_from_left);
-                mFragTransition.add(R.id.around_container, mPeopleAround, "PeopleFragment");
+                mFragTransition.replace(R.id.around_container, mPeopleAround, "PeopleFragment");
                 mFragTransition.commit();
                 break;
             case R.id.around_grouprad:
                 mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
-                mFragTransition.add(R.id.around_container, mGroupAround);
+                mFragTransition.replace(R.id.around_container, mGroupAround);
                 mFragTransition.commit();
                 break;
             default:
