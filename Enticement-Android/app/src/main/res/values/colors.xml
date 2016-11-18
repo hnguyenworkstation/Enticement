@@ -11,7 +11,8 @@
 
     <color name="white">#FFFFFF</color>
     <color name="red1">#990000</color>
-    <color name="green1">#009900</color>
+    <color name="green1">#05AE5C</color>
+    <color name="green2">#089651</color>
     <color name="blue1">#000099</color>
     <color name="orange1">#FF9900</color>
     <color name="bg_page">#EBEBEB</color>

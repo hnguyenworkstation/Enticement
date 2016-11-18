@@ -1,0 +1,55 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.greencode.enticement_android.Activities.MapsActivity" >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/map.toolbar"
+            android:layout_width="match_parent"
+            android:titleTextColor="@color/white"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_location_black"
+            android:paddingBottom="7dp"
+            />
+    </LinearLayout>
+
+    <com.cengalabs.flatui.views.FlatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:text="@string/dropoff"
+        android:textAllCaps="true"
+        android:drawableStart="@android:drawable/ic_menu_add"
+        android:drawableEnd="@android:drawable/ic_menu_add"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:id="@+id/map.dropoff"
+        android:enabled="true"/>
+
+</FrameLayout >

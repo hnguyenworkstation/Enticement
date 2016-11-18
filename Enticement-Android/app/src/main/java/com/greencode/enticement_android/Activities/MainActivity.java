@@ -2,11 +2,15 @@ package com.greencode.enticement_android.Activities;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.RequiresPermission;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -24,12 +28,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
+import com.greencode.enticement_android.Manifest;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
+import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
 import com.greencode.enticement_android.ViewFragments.MoreFragment;
 import com.greencode.enticement_android.ViewFragments.AroundFragment;
@@ -42,7 +50,9 @@ public class MainActivity extends EnticementActivity
             ListChatroomFragment.OnListFragmentInteractionListener,
             UpdatesFragment.OnListFragmentInteractionListener,
             MoreFragment.OnFragmentInteractionListener,
-            PeopleAroundFragment.OnListFragmentInteractionListener {
+            PeopleAroundFragment.OnListFragmentInteractionListener,
+            GroupAroundFragment.OnListFragmentInteractionListener {
+
     private ViewPager mViewPager;
 
     private View rootLayout;
@@ -70,6 +80,8 @@ public class MainActivity extends EnticementActivity
 
     private final int EVENT_AROUND_POS = 0;
     private final int CHATROOM_POS = 1;
+    private static final int REQUEST_LOCATION_ACCESS = 0;
+    private final int REQUEST_CODE_AUTOCOMPLETE = 1;
 
     private final int[] mTabsIcons = {
             R.drawable.ic_home_white_24dp,
@@ -80,6 +92,8 @@ public class MainActivity extends EnticementActivity
     };
 
     @Override
+    @RequiresPermission(anyOf = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -146,6 +160,36 @@ public class MainActivity extends EnticementActivity
         }
     }
 
+    private boolean mayRequestPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        if (shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                || shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            requestPermission();
+        } else {
+            requestPermission();
+        }
+        return false;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                },
+                REQUEST_LOCATION_ACCESS);
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -162,10 +206,25 @@ public class MainActivity extends EnticementActivity
                 break;
             case R.id.actionbar_mapbutton:
                 Toast.makeText(getBaseContext(), "Map Clicked", Toast.LENGTH_SHORT).show();
-
+                if (mayRequestPermissions()) {
+                    startActivity(new Intent(MainActivity.this, MapsActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_OK) {
+            startActivity(new Intent(MainActivity.this, MapsActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        } else {
+
         }
     }
 

@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
+
 public class AroundFragment extends Fragment implements
-        View.OnClickListener,
-        PeopleAroundFragment.OnListFragmentInteractionListener {
+        RadioGroup.OnCheckedChangeListener,
+        PeopleAroundFragment.OnListFragmentInteractionListener,
+        GroupAroundFragment.OnListFragmentInteractionListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -30,8 +34,11 @@ public class AroundFragment extends Fragment implements
     private FrameLayout mLayoutContainer;
     private FragmentManager mFragManager;
     private FragmentTransaction mFragTransition;
-    private PeopleAroundFragment mPeopleFragment;
     private OnFragmentInteractionListener mListener;
+    private SegmentedGroup mSegmentGroup;
+
+    private PeopleAroundFragment mPeopleAround;
+    private GroupAroundFragment mGroupAround;
 
     public AroundFragment() {
         // Required empty public constructor
@@ -53,6 +60,9 @@ public class AroundFragment extends Fragment implements
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        mPeopleAround = new PeopleAroundFragment();
+        mGroupAround = new GroupAroundFragment();
     }
 
     @Override
@@ -61,14 +71,12 @@ public class AroundFragment extends Fragment implements
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_around, container, false);
 
-        mPeopleFragment = new PeopleAroundFragment();
-
         mPeopleRad = (RadioButton) rootView.findViewById(R.id.around_peoplerad);
         mPeopleRad.setChecked(true);
         mGroupRad = (RadioButton) rootView.findViewById(R.id.around_grouprad);
 
-        mPeopleRad.setOnClickListener(this);
-        mGroupRad.setOnClickListener(this);
+        mSegmentGroup = (SegmentedGroup) rootView.findViewById(R.id.around_segmentedgroup);
+        mSegmentGroup.setOnCheckedChangeListener(this);
 
         mFragManager = getActivity().getSupportFragmentManager();
         mFragTransition = mFragManager.beginTransaction();
@@ -78,15 +86,16 @@ public class AroundFragment extends Fragment implements
     }
 
     private void initLayoutView() {
+        mFragTransition = getFragmentManager().beginTransaction();
         if (mPeopleRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
-            mFragTransition.replace(R.id.around_container, mPeopleFragment);
+            mFragTransition.replace(R.id.around_container, mPeopleAround);
             mFragTransition.commit();
         }
 
         if (mGroupRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_right, R.anim.fade_in_from_left);
-            mFragTransition.replace(R.id.around_container, mPeopleFragment, "PeopleFragment");
+            mFragTransition.replace(R.id.around_container, mGroupAround, "PeopleFragment");
             mFragTransition.commit();
         }
     }
@@ -96,6 +105,13 @@ public class AroundFragment extends Fragment implements
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onViewStateRestored (Bundle savedInstanceState)
+    {
+        super.onViewStateRestored (savedInstanceState);
+        initLayoutView();
     }
 
     @Override
@@ -121,22 +137,17 @@ public class AroundFragment extends Fragment implements
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+        mFragTransition = getFragmentManager().beginTransaction();
+        switch (checkedId) {
             case R.id.around_peoplerad:
-                if (mPeopleRad.isChecked()) {
-                    break;
-                }
                 mFragTransition.setCustomAnimations(R.anim.fade_out_to_right, R.anim.fade_in_from_left);
-                mFragTransition.replace(R.id.around_container, mPeopleFragment, "PeopleFragment");
+                mFragTransition.replace(R.id.around_container, mPeopleAround, "PeopleFragment");
                 mFragTransition.commit();
                 break;
             case R.id.around_grouprad:
-                if (mGroupRad.isChecked()) {
-                    break;
-                }
                 mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
-                mFragTransition.replace(R.id.around_container, mPeopleFragment);
+                mFragTransition.replace(R.id.around_container, mGroupAround);
                 mFragTransition.commit();
                 break;
             default:
