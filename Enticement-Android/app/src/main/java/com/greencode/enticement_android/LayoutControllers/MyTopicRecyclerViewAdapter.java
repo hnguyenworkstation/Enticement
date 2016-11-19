@@ -1,23 +1,28 @@
 package com.greencode.enticement_android.LayoutControllers;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.TopicFragment.OnListFragmentInteractionListener;
-import com.greencode.enticement_android.Models.DummyContent.DummyItem;
+import com.greencode.enticement_android.Models.Topics.Topic;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MyTopicRecyclerViewAdapter extends RecyclerView.Adapter<MyTopicRecyclerViewAdapter.ViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    private final List<DummyItem> mValues;
+public class MyTopicRecyclerViewAdapter extends RecyclerView.Adapter<MyTopicRecyclerViewAdapter.ViewHolder> {
+    private final List<Topic> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTopicRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyTopicRecyclerViewAdapter(List<Topic> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -32,15 +37,13 @@ public class MyTopicRecyclerViewAdapter extends RecyclerView.Adapter<MyTopicRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mTopicIcon.setImageResource(mValues.get(position).logo);
+        holder.mTopicName.setText(mValues.get(position).details);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
@@ -54,20 +57,15 @@ public class MyTopicRecyclerViewAdapter extends RecyclerView.Adapter<MyTopicRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final CircleImageView mTopicIcon;
+        public final TextView mTopicName;
+        public Topic mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            mTopicIcon = (CircleImageView) view.findViewById(R.id.topic_avatar);
+            mTopicName = (TextView) view.findViewById(R.id.topic_content);
         }
     }
 }

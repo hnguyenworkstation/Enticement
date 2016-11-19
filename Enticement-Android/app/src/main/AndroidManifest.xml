@@ -29,10 +29,9 @@
         </activity>
         <activity
             android:name=".Activities.MyProfileActivity"
-<<<<<<< HEAD
-            android:parentActivityName=".Activities.MainActivity"></activity>
-        <activity android:name=".Activities.TopicActivity"></activity>
-=======
+            android:parentActivityName=".Activities.MainActivity" />
+
+        <activity android:name=".Activities.TopicActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

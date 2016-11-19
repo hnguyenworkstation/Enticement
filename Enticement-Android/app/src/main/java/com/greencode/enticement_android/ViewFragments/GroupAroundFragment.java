@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greencode.enticement_android.LayoutControllers.MyGroupRecyclerViewAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 

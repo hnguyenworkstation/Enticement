@@ -1,6 +1,7 @@
 package com.greencode.enticement_android.ViewFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greencode.enticement_android.Activities.TopicActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.MyPostModelRecyclerViewAdapter;
 import com.greencode.enticement_android.R;
@@ -105,6 +107,7 @@ public class FeaturedFragment extends Fragment {
             case R.id.menuchatroom_add:
                 try {
                     AppUtils.showToast("Add Clicked", getContext());
+                    startActivity(new Intent(getActivity(), TopicActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 } catch (Exception e) {
 
                 }

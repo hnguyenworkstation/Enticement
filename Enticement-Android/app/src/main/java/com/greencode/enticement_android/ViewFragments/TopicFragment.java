@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.greencode.enticement_android.LayoutControllers.MyTopicRecyclerViewAdapter;
+import com.greencode.enticement_android.Models.Topics;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.Models.DummyContent.DummyItem;
@@ -55,7 +56,7 @@ public class TopicFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyTopicRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyTopicRecyclerViewAdapter(Topics.TOPICS, mListener));
         }
         return view;
     }
@@ -80,6 +81,6 @@ public class TopicFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Topics.Topic item);
     }
 }

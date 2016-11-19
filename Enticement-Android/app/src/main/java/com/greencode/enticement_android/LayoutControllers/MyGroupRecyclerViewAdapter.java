@@ -1,4 +1,4 @@
-package com.greencode.enticement_android.ViewFragments;
+package com.greencode.enticement_android.LayoutControllers;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
+import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
 
 import java.util.List;
 
