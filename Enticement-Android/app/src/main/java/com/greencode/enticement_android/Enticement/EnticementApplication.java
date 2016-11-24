@@ -2,6 +2,8 @@ package com.greencode.enticement_android.Enticement;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
+
 import java.util.Calendar;
 
 /**
@@ -17,6 +19,8 @@ public class EnticementApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = EnticementApplication.this;
+
+        FirebaseApp.initializeApp(this);
     }
 
     public static synchronized EnticementApplication getInstance() {

@@ -16,7 +16,7 @@ public class Topics {
 
     private static final int[] listIcon = new int[] {
             R.drawable.ic_active_send
-    } ;
+    };
 
     private static final String[] listTitle = new String[] {
             "Traveling"

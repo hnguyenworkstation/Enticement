@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginTop="@dimen/margin_4">
+
+    <ImageView
+        android:layout_width="@dimen/chatroom_ava_size"
+        android:layout_height="@dimen/chatroom_ava_size"
+        android:src="@drawable/logo_image"
+        android:id="@+id/chatroom.avatar"
+        android:layout_gravity="top"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chatroom.name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hung Nguyen"
+            android:layout_marginStart="@dimen/text_margin"
+            android:textSize="@dimen/chatroom_name_txtsize"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+        <TextView
+            android:id="@+id/chatroom.lastmsg"
+            android:layout_width="wrap_content"
+            android:text="hahahahahahahhahahahahahahhahahhaha"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginTop="@dimen/margin_4"
+            android:textSize="@dimen/chatroom_message_txtsize"
+            android:textAppearance="?attr/textAppearanceListItem" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".3"
+        android:layout_gravity="end"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chatroom.time"
+            android:text="Today"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textSize="@dimen/chatroom_message_txtsize"
+            android:textAppearance="?attr/textAppearanceListItem"/>
+    </LinearLayout>
+
+</LinearLayout>

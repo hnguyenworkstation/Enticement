@@ -15,5 +15,5 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.greencode.enticement_android.ViewFragments.ListChatroomFragment"
-        tools:listitem="@layout/fragment_chatroom" />
+        tools:listitem="@layout/chatroom_item_row" />
 </android.support.v4.widget.SwipeRefreshLayout>

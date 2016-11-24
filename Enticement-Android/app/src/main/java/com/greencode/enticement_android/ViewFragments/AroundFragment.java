@@ -89,11 +89,11 @@ public class AroundFragment extends Fragment implements
         mFragTransition = getFragmentManager().beginTransaction();
         if (mPeopleRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
-            mFragTransition.add(R.id.around_container, mPeopleAround);
+            mFragTransition.replace(R.id.around_container, mPeopleAround);
             mFragTransition.commit();
         } else if (mGroupRad.isChecked()) {
             mFragTransition.setCustomAnimations(R.anim.fade_out_to_right, R.anim.fade_in_from_left);
-            mFragTransition.add(R.id.around_container, mGroupAround, "PeopleFragment");
+            mFragTransition.replace(R.id.around_container, mGroupAround, "PeopleFragment");
             mFragTransition.commit();
         }
     }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.MyChatRoomRecyclerViewAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
@@ -60,7 +61,8 @@ public class ListChatroomFragment extends Fragment {
         } else {
             mRecycler.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        mAdapter = new MyChatRoomRecyclerViewAdapter(DummyContent.ITEMS, mListener);
+
+        mAdapter = new MyChatRoomRecyclerViewAdapter(getContext());
         mRecycler.setAdapter(mAdapter);
 
         mSwipeRefLayout = (SwipeRefreshLayout) view.findViewById(R.id.chatroom_swiperef);
