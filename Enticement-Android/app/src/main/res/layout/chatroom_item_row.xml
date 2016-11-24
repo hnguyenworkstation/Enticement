@@ -5,10 +5,12 @@
     android:orientation="horizontal"
     android:focusable="true"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginTop="@dimen/margin_4">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <ImageView
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_4"
         android:layout_width="@dimen/chatroom_ava_size"
         android:layout_height="@dimen/chatroom_ava_size"
         android:src="@drawable/logo_image"
@@ -16,6 +18,8 @@
         android:layout_gravity="top"/>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -45,6 +49,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".3"
