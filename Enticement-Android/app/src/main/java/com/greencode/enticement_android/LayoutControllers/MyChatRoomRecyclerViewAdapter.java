@@ -66,6 +66,7 @@ public class MyChatRoomRecyclerViewAdapter extends  RecyclerView.Adapter<MyChatR
         ChatRooms.ChatRoom roomModel = listRooms.get(position);
         viewHolder.setAvatar(roomModel.getUser().getImageURL());
         viewHolder.setName(roomModel.getUser().getName());
+        viewHolder.setLastMsg(roomModel.getLastMessage());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -91,8 +92,12 @@ public class MyChatRoomRecyclerViewAdapter extends  RecyclerView.Adapter<MyChatR
 
         }
 
+        void setLastMsg(String msg) {
+            this.message.setText(msg);
+        }
+
         void setName(String name) {
-            
+            this.name.setText(name);
         }
     }
 }
