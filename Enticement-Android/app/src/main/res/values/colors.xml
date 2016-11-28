@@ -51,4 +51,5 @@
     <!-- Chatroom Colors-->
     <color name="chatroom_bg">#eceff1</color>
     <color name="chatroom_toolbar">#607D8B</color>
+    <color name="chatroom_textcolor">#CFD8DC</color>
 </resources>
