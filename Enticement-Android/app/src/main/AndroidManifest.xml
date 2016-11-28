@@ -30,8 +30,8 @@
         <activity
             android:name=".Activities.MyProfileActivity"
             android:parentActivityName=".Activities.MainActivity" />
-
-        <activity android:name=".Activities.TopicActivity"
+        <activity
+            android:name=".Activities.TopicActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -45,6 +45,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <provider
+            android:name="vc908.stickerfactory.provider.StickersProvider"
+            android:authorities="com.greencode.enticement_android.stickersProvider"
+            android:exported="false"/>
+
         <activity
             android:name=".Activities.MapsActivity"
             android:label="@string/title_activity_maps">
@@ -52,7 +57,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greencode.enticement_android.Activities.MainActivity" />
         </activity>
->>>>>>> 3ee40ef2b47bba56ddc52bf3ad062991901cfff5
+
+        <activity android:name=".Activities.ChatRoomActivity"
+            android:parentActivityName=".Activities.MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greencode.enticement_android.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

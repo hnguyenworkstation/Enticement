@@ -1,6 +1,7 @@
 package com.greencode.enticement_android.ViewFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.FirebaseDatabase;
+import com.greencode.enticement_android.Activities.ChatRoomActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.MyChatRoomRecyclerViewAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
@@ -64,6 +67,24 @@ public class ListChatroomFragment extends Fragment {
 
         mAdapter = new MyChatRoomRecyclerViewAdapter(getContext());
         mRecycler.setAdapter(mAdapter);
+
+        mRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                startActivity(new Intent(getActivity(), ChatRoomActivity.class));
+                return true;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+                startActivity(new Intent(getActivity(), ChatRoomActivity.class));
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         mSwipeRefLayout = (SwipeRefreshLayout) view.findViewById(R.id.chatroom_swiperef);
         mSwipeRefLayout.setColorSchemeResources(R.color.orange1, R.color.green1, R.color.blue1);

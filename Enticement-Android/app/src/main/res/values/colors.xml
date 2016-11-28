@@ -47,4 +47,8 @@
 
     <!-- Toolbar -->
     <color name="ToolbarBackgroundColor">#f9f9f9</color>
+
+    <!-- Chatroom Colors-->
+    <color name="chatroom_bg">#eceff1</color>
+    <color name="chatroom_toolbar">#607D8B</color>
 </resources>

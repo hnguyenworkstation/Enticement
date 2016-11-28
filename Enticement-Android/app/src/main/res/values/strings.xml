@@ -37,10 +37,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Chat Strings -->
-    <string name="chatroom.inputhint">Write a message...</string>
-    <string name="chatroom.istyping">is typing...</string>
-
     <!-- Endpoint String-->
     <string name="DB_users">Users</string>
     <string name="SR_profileImage">ProfileImages</string>
@@ -77,4 +73,9 @@
     <!-- Map String -->
     <string name="dropoff">Drop me here!</string>
     <string name="map_title">Location</string>
+
+    <!-- Chatroom Strings-->
+    <string name="chatroom_stickerapi">024340accc66bf40e38f30c1369ac480</string>
+    <string name="chatroom_inputhint">Write a message...</string>
+    <string name="chatroom.istyping">is typing...</string>
 </resources>

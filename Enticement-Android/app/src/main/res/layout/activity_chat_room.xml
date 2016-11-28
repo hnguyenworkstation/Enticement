@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vc908.stickerfactory.ui.view.StickersKeyboardLayout
+    android:id="@+id/cract.layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/chatroom_bg">
+
+    <RelativeLayout
+        android:id="@+id/cract.contentlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/cract.toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/chatroom_toolbar"
+            app:contentInsetLeft="@dimen/material_72"
+            app:contentInsetStart="@dimen/material_72"
+            app:title="@string/app_name"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cract.msgrecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/cract.inputrow"
+            android:layout_below="@id/cract.toolbar"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"/>
+
+        <LinearLayout
+            android:id="@+id/cract.divider"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cract.suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sp_suggest_container_height"
+            android:layout_above="@+id/cract.inputrow"/>
+
+        <RelativeLayout
+            android:id="@+id/cract.inputrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white">
+
+            <ImageButton
+                android:id="@+id/cract.sendbtn"
+                android:layout_width="@dimen/material_48"
+                android:layout_height="@dimen/material_48"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_active_send"
+                android:contentDescription="@null"/>
+
+            <EditText
+                android:id="@+id/cract.inputtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/cract.stickerbtn"
+                android:layout_toLeftOf="@id/cract.sendbtn"
+                android:layout_toStartOf="@id/cract.sendbtn"
+                android:layout_toRightOf="@+id/cract.stickerbtn"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="@string/chatroom_inputhint"
+                android:nextFocusLeft="@id/cract.inputtext"
+                android:nextFocusUp="@id/cract.inputtext"
+                android:textSize="@dimen/text_14"/>
+
+
+            <vc908.stickerfactory.ui.view.BadgedStickersButton
+                android:id="@+id/cract.stickerbtn"
+                android:layout_width="@dimen/material_48"
+                android:layout_height="@dimen/material_48"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackground"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/cract.stickercontainer"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+</vc908.stickerfactory.ui.view.StickersKeyboardLayout>

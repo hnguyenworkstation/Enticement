@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven { url  'http://maven.stickerpipe.com/artifactory/stickerfactory' }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
@@ -18,6 +22,8 @@ android {
         }
     }
 }
+
+def stickerpipeSdkVersion = '0.14.3'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,6 +51,17 @@ dependencies {
     compile 'com.github.eluleci:flatui:3.0.0'
     compile 'info.hoang8f:android-segmented:1.0.6'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile("vc908.stickers:stickerfactory:$stickerpipeSdkVersion") {
+        transitive = true;
+    }
+
+    compile("vc908.stickers:gcmintegration:$stickerpipeSdkVersion") {
+        transitive = true;
+    }
+
+    compile("vc908.stickers:jpushintegration:$stickerpipeSdkVersion") {
+        transitive = true;
+    }
 
     testCompile 'junit:junit:4.12'
 }
