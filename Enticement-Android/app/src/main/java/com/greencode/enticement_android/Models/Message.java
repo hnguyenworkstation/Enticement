@@ -10,7 +10,7 @@ public class Message {
         MESSAGE_IN,
         STICKER_IN,
         MESSAGE_OUT,
-        nextItemType, prevItemType, STICKER_OUT
+        STICKER_OUT, nextItemType, prevItemType
     }
 
     private MessageType type;

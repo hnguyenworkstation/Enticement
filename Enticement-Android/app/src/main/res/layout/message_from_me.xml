@@ -12,7 +12,7 @@
         android:id="@+id/message.content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/message_from_friend"
+        android:background="@drawable/message_from_me"
         android:paddingBottom="@dimen/material_8"
         android:paddingLeft="@dimen/material_16"
         android:paddingRight="@dimen/material_16"
@@ -34,14 +34,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:id="@+id/message.checkbox"
-        android:layout_below="@+id/message.content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/message.timestamp"
-        android:src="@drawable/check_box"/>
-
     <TextView
         android:id="@+id/message.status"
         android:layout_width="wrap_content"
@@ -53,6 +45,6 @@
         android:paddingBottom="4dp"
         android:textColor="@color/chatroom_textcolor"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/message.checkbox"/>
+        android:layout_toStartOf="@+id/message.timestamp"/>
 
 </RelativeLayout>

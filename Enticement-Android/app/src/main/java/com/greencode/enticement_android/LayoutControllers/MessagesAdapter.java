@@ -21,6 +21,9 @@ import com.greencode.enticement_android.R;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import vc908.stickerfactory.StickersManager;
 
 /**
@@ -33,6 +36,8 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     private static final int LEFT_MSG = 1;
     private static final int RIGHT_MSG_IMG = 2;
     private static final int LEFT_MSG_IMG = 3;
+
+    private final SimpleDateFormat MESSAGE_TIME_FORMAT = new SimpleDateFormat("M/dd, k:mm", Locale.US);
 
     private Context mContext;
 
@@ -75,22 +80,25 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 
     @Override
     protected void populateViewHolder(MessageViewHolder viewHolder, Message model, int position) {
-        // viewHolder.setUserProfile(model.getUserModel().getPhoto_profile());
 
-        if (model.getType() == Message.MessageType.STICKER_IN || model.getType() == Message.MessageType.STICKER_OUT) {
+        if (model.getType() == Message.MessageType.STICKER_IN
+                || model.getType() == Message.MessageType.STICKER_OUT) {
             viewHolder.loadSticker(model.getMessage());
             viewHolder.setTimestamp(String.valueOf(model.getTime()));
         } else {
             viewHolder.setTxtMessage(model.getMessage());
             viewHolder.setTimestamp(String.valueOf(model.getTime()));
         }
-//        if (model.getFile() != null){
-//            viewHolder.tvIsLocation(View.GONE);
-//            viewHolder.setIvChatPhoto(model.getFile().getUrl_file());
-//        }else if(model.getMapModel() != null){
-//            viewHolder.setIvChatPhoto(alessandro.firebaseandroid.util.Util.local(model.getMapModel().getLatitude(),model.getMapModel().getLongitude()));
-//            viewHolder.tvIsLocation(View.VISIBLE);
-//        }
+
+        if (position == 0) {
+            viewHolder.updateTime(position, getItem(position).getTime(),
+                    getItem(position).getType(), -1);
+            viewHolder.updateAvatarVisibility(position, -1);
+        } else {
+            viewHolder.updateTime(position, getItem(position).getTime(),
+                    getItem(position).getType(), getItemViewType(position-1));
+            viewHolder.updateAvatarVisibility(position, getItemViewType(position-1));
+        }
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -100,7 +108,6 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
         TextView mStatus;
         ImageView mUserProfile;
         ImageView mSticker;
-        ImageView mCheckBox;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
@@ -109,13 +116,20 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             mStatus = (TextView) itemView.findViewById(R.id.message_status);
             mSticker = (ImageView) itemView.findViewById(R.id.message_sticker);
             mUserProfile = (ImageView)itemView.findViewById(R.id.message_userimg);
-            mCheckBox = (ImageView)itemView.findViewById(R.id.message_checkbox);
         }
 
         public void loadSticker(String message) {
             StickersManager.with(mContext)
                     .loadSticker(message)
                     .into(mSticker);
+        }
+
+        public void setTime(long time) {
+            mTimeStamp.setText(MESSAGE_TIME_FORMAT.format(time));
+        }
+
+        public void hideTime() {
+            mTimeStamp.setVisibility(View.GONE);
         }
 
         @Override
@@ -127,6 +141,57 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 //            }else{
 //                mClickListenerChatFirebase.clickImageChat(view,position,model.getUserModel().getName(),model.getUserModel().getPhoto_profile(),model.getFile().getUrl_file());
 //            }
+        }
+
+        private void updateAvatarVisibility(int position,int viewType) {
+            if (mUserProfile != null) {
+                if (position != 0) {
+                    Message.MessageType prevItemType = Message.MessageType.values()[viewType];
+                    if (prevItemType == Message.MessageType.MESSAGE_IN
+                            || prevItemType == Message.MessageType.STICKER_IN) {
+                        mUserProfile.setVisibility(View.GONE);
+                    } else {
+                        mUserProfile.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    mUserProfile.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
+        void updateTime(int position, long time, Message.MessageType currentItemType, int viewType) {
+            if (viewType == -1){
+                setTime(time);
+                return;
+            }
+
+            if (position != getItemCount() - 1) {
+                Message.MessageType nextItemType = Message.MessageType.values()[viewType];
+                switch (nextItemType) {
+                    case STICKER_OUT:
+                    case MESSAGE_OUT:
+                        if (currentItemType == Message.MessageType.MESSAGE_OUT
+                                || currentItemType == Message.MessageType.STICKER_OUT) {
+                            hideTime();
+                        } else {
+                            setTime(time);
+                        }
+                        break;
+                    case STICKER_IN:
+                    case MESSAGE_IN:
+                        if (currentItemType == Message.MessageType.MESSAGE_IN
+                                || currentItemType == Message.MessageType.STICKER_IN) {
+                            hideTime();
+                        } else {
+                            setTime(time);
+                        }
+                        break;
+                    default:
+                        throw new RuntimeException("Unknown item type");
+                }
+            } else {
+                setTime(time);
+            }
         }
 
         public void setTxtMessage(String message){

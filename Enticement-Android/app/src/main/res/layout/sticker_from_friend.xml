@@ -23,7 +23,7 @@
         android:scaleType="fitStart"/>
 
     <TextView
-        android:id="@+id/chat_item_time"
+        android:id="@+id/message.timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/message.sticker"
