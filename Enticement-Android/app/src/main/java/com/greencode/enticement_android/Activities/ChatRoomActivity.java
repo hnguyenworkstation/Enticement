@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.LayoutControllers.MessagesAdapter;
 import com.greencode.enticement_android.Models.Message;
@@ -43,6 +44,7 @@ public class ChatRoomActivity extends EnticementActivity {
     private EditText mInputMsg;
     private RecyclerView mListMsgView;
     private StickersKeyboardController mStickerKeyboardController;
+    private MessagesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class ChatRoomActivity extends EnticementActivity {
         setSupportActionBar(toolbar);
 
         mListMsgView = (RecyclerView) findViewById(R.id.cract_msgrecycler);
+        mAdapter = new MessagesAdapter(FirebaseDatabase.getInstance().getReference(), ChatRoomActivity.this);
+        mListMsgView.setAdapter(mAdapter);
 
         mInputMsg = (EditText) findViewById(R.id.cract_inputtext);
         ImageView buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
