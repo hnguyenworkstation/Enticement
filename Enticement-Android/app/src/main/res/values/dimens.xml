@@ -48,6 +48,7 @@
     <dimen name="chatroom_ava_size">65dp</dimen>
     <dimen name="chatroom_name_txtsize">20sp</dimen>
     <dimen name="chatroom_message_txtsize">15sp</dimen>
+    <dimen name="chatroom_userprofile_size">30dp</dimen>
 
     <!-- Topic Item -->
     <dimen name="topic_logo_size">45dp</dimen>
