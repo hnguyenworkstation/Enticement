@@ -1,6 +1,7 @@
 package com.greencode.enticement_android.LayoutControllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -33,11 +34,11 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     private static final int RIGHT_MSG_IMG = 2;
     private static final int LEFT_MSG_IMG = 3;
 
-    private Activity mActivity;
+    private Context mContext;
 
-    public MessagesAdapter(DatabaseReference ref, Activity activity) {
+    public MessagesAdapter(DatabaseReference ref, Context context) {
         super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class, ref);
-        this.mActivity = activity;
+        this.mContext = context;
     }
 
     @Override
@@ -75,12 +76,13 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     @Override
     protected void populateViewHolder(MessageViewHolder viewHolder, Message model, int position) {
         // viewHolder.setUserProfile(model.getUserModel().getPhoto_profile());
-        viewHolder.setTxtMessage(model.getMessage());
-        viewHolder.setTimestamp(String.valueOf(model.getTime()));
-        viewHolder.tvIsLocation(View.GONE);
 
         if (model.getType() == Message.MessageType.STICKER_IN || model.getType() == Message.MessageType.STICKER_OUT) {
-            viewHolder.loadSticker(viewHolder.mSticker, model.getMessage());
+            viewHolder.loadSticker(model.getMessage());
+            viewHolder.setTimestamp(String.valueOf(model.getTime()));
+        } else {
+            viewHolder.setTxtMessage(model.getMessage());
+            viewHolder.setTimestamp(String.valueOf(model.getTime()));
         }
 //        if (model.getFile() != null){
 //            viewHolder.tvIsLocation(View.GONE);
@@ -110,10 +112,10 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             mCheckBox = (ImageView)itemView.findViewById(R.id.message_checkbox);
         }
 
-        public void loadSticker(ImageView convertView, String message) {
-            StickersManager.with(mActivity)
+        public void loadSticker(String message) {
+            StickersManager.with(mContext)
                     .loadSticker(message)
-                    .into((convertView));
+                    .into(mSticker);
         }
 
         @Override

@@ -5,8 +5,10 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.LayoutControllers.MessagesAdapter;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.R;
@@ -45,6 +48,7 @@ public class ChatRoomActivity extends EnticementActivity {
     private RecyclerView mListMsgView;
     private StickersKeyboardController mStickerKeyboardController;
     private MessagesAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,11 @@ public class ChatRoomActivity extends EnticementActivity {
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.chatroom_toolbar));
         setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         mListMsgView = (RecyclerView) findViewById(R.id.cract_msgrecycler);
-        mAdapter = new MessagesAdapter(FirebaseDatabase.getInstance().getReference(), ChatRoomActivity.this);
-        mListMsgView.setAdapter(mAdapter);
+        initMessagesRecycler();
 
         mInputMsg = (EditText) findViewById(R.id.cract_inputtext);
         ImageView buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
@@ -112,6 +117,28 @@ public class ChatRoomActivity extends EnticementActivity {
         processIntent(getIntent());
     }
 
+    private void initMessagesRecycler() {
+        mAdapter = new MessagesAdapter(Firebase.ChatRoomRef, getBaseContext());
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setStackFromEnd(true);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                int friendlyMessageCount = mAdapter.getItemCount();
+                int lastVisiblePosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (friendlyMessageCount - 1) &&
+                                lastVisiblePosition == (positionStart - 1))) {
+                    mListMsgView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
+        mListMsgView.setLayoutManager(mLinearLayoutManager);
+        mListMsgView.setAdapter(mAdapter);
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -142,25 +169,28 @@ public class ChatRoomActivity extends EnticementActivity {
     };
 
 
-    private void sendMessage(String message, boolean isIn, long time) {
+    private void sendMessage(String message, boolean isFromMe, long time) {
         if (TextUtils.isEmpty(message)) {
             return;
         }
+        Message msg;
         if (StickersManager.isSticker(message)) {
-            items.add(new Message(isIn ? Message.MessageType.STICKER_IN : Message.MessageType.STICKER_OUT, message, time));
+            msg = new Message(isFromMe ? Message.MessageType.STICKER_IN : Message.MessageType.STICKER_OUT, message, time);
             StickersManager.onUserMessageSent(true);
         } else {
-            items.add(new Message(isIn ? Message.MessageType.MESSAGE_IN : Message.MessageType.MESSAGE_OUT, message, time));
+            msg = new Message(isFromMe ? Message.MessageType.MESSAGE_IN : Message.MessageType.MESSAGE_OUT, message, time);
             StickersManager.onUserMessageSent(false);
-            if (!isIn) {
+            if (!isFromMe) {
                 mInputMsg.setText("");
             }
         }
-        updateList(!isIn);
+
+        Firebase.ChatRoomRef.push().setValue(msg);
+        updateList(!isFromMe);
     }
 
     private void updateList(boolean forceScroll) {
-        // mMessageAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
         scrollToBottomIfNeed(forceScroll);
     }
 

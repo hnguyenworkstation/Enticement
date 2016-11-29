@@ -17,6 +17,10 @@ public class Message {
     private String message;
     private long time;
 
+    public Message() {
+
+    }
+
     public Message(MessageType type, String message, long time) {
         this.type = type;
         this.message = message;
