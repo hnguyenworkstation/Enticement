@@ -95,8 +95,8 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             viewHolder.updateAvatarVisibility(position, -1);
         } else {
             viewHolder.updateTime(position, getItem(position).getTime(),
-                    getItem(position).getType(), getItemViewType(position-1));
-            viewHolder.updateAvatarVisibility(position, getItemViewType(position-1));
+                    getItem(position).getType(), getItemViewType(position - 1));
+            viewHolder.updateAvatarVisibility(position, getItemViewType(position - 1));
         }
     }
 
@@ -167,8 +167,8 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             }
 
             if (position != getItemCount() - 1) {
-                Message.MessageType nextItemType = Message.MessageType.values()[preViewType];
-                switch (nextItemType) {
+                Message.MessageType prevItemType = Message.MessageType.values()[preViewType];
+                switch (prevItemType) {
                     case STICKER_OUT:
                     case MESSAGE_OUT:
                         if (currentItemType == Message.MessageType.MESSAGE_OUT
