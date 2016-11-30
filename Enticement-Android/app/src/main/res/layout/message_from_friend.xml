@@ -31,17 +31,23 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/material_48"/>
 
-    <TextView
-        android:id="@+id/message.timestamp"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Today, 9.18"
-        android:textColor="@color/chatroom_textcolor"
-        android:textSize="@dimen/text_12"
-        android:layout_below="@+id/message.content"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:layout_marginLeft="@dimen/material_48"/>
+        android:layout_alignParentStart="true"
+        android:id="@+id/message.infoview"
+        android:layout_below="@+id/message.content">
+        <TextView
+            android:id="@+id/message.timestamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Today, 9.18"
+            android:textColor="@color/chatroom_textcolor"
+            android:textSize="@dimen/text_12"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginLeft="@dimen/material_48"/>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -22,16 +22,21 @@
         android:layout_marginLeft="@dimen/material_48"
         android:scaleType="fitStart"/>
 
-    <TextView
-        android:id="@+id/message.timestamp"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/message.sticker"
-        android:layout_marginBottom="@dimen/material_8"
-        android:layout_marginLeft="@dimen/material_48"
-        android:gravity="left"
-        android:text="Today, 9.18"
-        android:textColor="@color/chatroom_textcolor"
-        android:textSize="@dimen/text_12"/>
-
+        android:id="@+id/message.infoview"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/message.sticker">
+        <TextView
+            android:id="@+id/message.timestamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_8"
+            android:layout_marginLeft="@dimen/material_48"
+            android:gravity="left"
+            android:text="Today, 9.18"
+            android:textColor="@color/chatroom_textcolor"
+            android:textSize="@dimen/text_12"/>
+    </RelativeLayout>
 </RelativeLayout>

@@ -16,31 +16,35 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
-    <TextView
-        android:id="@+id/message.timestamp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:layout_marginRight="@dimen/material_8"
-        android:text="Today, 9.18"
-        android:textColor="@color/chatroom_textcolor"
-        android:textSize="@dimen/text_12"
-        android:layout_below="@+id/message.sticker"
-        android:layout_marginBottom="@dimen/material_8"
-        android:layout_alignLeft="@+id/message.sticker"
-        android:layout_alignStart="@+id/message.sticker"/>
+        android:id="@+id/message.infoview"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/message.sticker">
 
-    <TextView
-        android:id="@+id/message.status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seen"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_12"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:textColor="@color/chatroom_textcolor"
-        android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/message.timestamp"/>
+        <TextView
+            android:id="@+id/message.timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/material_8"
+            android:text="Today, 9.18"
+            android:textColor="@color/chatroom_textcolor"
+            android:textSize="@dimen/text_12"
+            android:layout_marginBottom="@dimen/material_8"/>
+
+        <TextView
+            android:id="@+id/message.status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seen"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_12"
+            android:paddingEnd="4dp"
+            android:layout_marginBottom="@dimen/material_8"
+            android:textColor="@color/chatroom_textcolor"
+            android:layout_toStartOf="@+id/message.timestamp"/>
+    </RelativeLayout>
 
 </RelativeLayout>

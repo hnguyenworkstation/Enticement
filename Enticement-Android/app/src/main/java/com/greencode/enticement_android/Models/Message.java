@@ -7,10 +7,10 @@ package com.greencode.enticement_android.Models;
 public class Message {
 
     public enum MessageType {
-        MESSAGE_IN,
-        STICKER_IN,
         MESSAGE_OUT,
-        STICKER_OUT, nextItemType, prevItemType
+        MESSAGE_IN,
+        STICKER_OUT,
+        STICKER_IN, nextItemType, prevItemType
     }
 
     private MessageType type;

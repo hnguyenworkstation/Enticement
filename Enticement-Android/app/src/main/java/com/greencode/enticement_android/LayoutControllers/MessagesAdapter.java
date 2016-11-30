@@ -80,7 +80,6 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 
     @Override
     protected void populateViewHolder(MessageViewHolder viewHolder, Message model, int position) {
-
         if (model.getType() == Message.MessageType.STICKER_IN
                 || model.getType() == Message.MessageType.STICKER_OUT) {
             viewHolder.loadSticker(model.getMessage());
@@ -101,35 +100,37 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
         }
     }
 
-    public class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView mTimeStamp;
         TextView mContent;
         TextView mStatus;
         ImageView mUserProfile;
         ImageView mSticker;
+        View mInfoView;
 
-        public MessageViewHolder(View itemView) {
+        MessageViewHolder(View itemView) {
             super(itemView);
             mTimeStamp = (TextView)itemView.findViewById(R.id.message_timestamp);
             mContent = (TextView)itemView.findViewById(R.id.message_content);
             mStatus = (TextView) itemView.findViewById(R.id.message_status);
             mSticker = (ImageView) itemView.findViewById(R.id.message_sticker);
             mUserProfile = (ImageView)itemView.findViewById(R.id.message_userimg);
+            mInfoView = itemView.findViewById(R.id.message_infoview);
         }
 
-        public void loadSticker(String message) {
+        void loadSticker(String message) {
             StickersManager.with(mContext)
                     .loadSticker(message)
                     .into(mSticker);
         }
 
-        public void setTime(long time) {
+        void setTime(long time) {
             mTimeStamp.setText(MESSAGE_TIME_FORMAT.format(time));
         }
 
-        public void hideTime() {
-            mTimeStamp.setVisibility(View.GONE);
+        void hideTime() {
+            mInfoView.setVisibility(View.GONE);
         }
 
         @Override
@@ -143,7 +144,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 //            }
         }
 
-        private void updateAvatarVisibility(int position,int viewType) {
+        void updateAvatarVisibility(int position,int viewType) {
             if (mUserProfile != null) {
                 if (position != 0) {
                     Message.MessageType prevItemType = Message.MessageType.values()[viewType];
@@ -159,14 +160,14 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             }
         }
 
-        void updateTime(int position, long time, Message.MessageType currentItemType, int viewType) {
-            if (viewType == -1){
+        void updateTime(int position, long time, Message.MessageType currentItemType, int preViewType) {
+            if (preViewType == -1){
                 setTime(time);
                 return;
             }
 
             if (position != getItemCount() - 1) {
-                Message.MessageType nextItemType = Message.MessageType.values()[viewType];
+                Message.MessageType nextItemType = Message.MessageType.values()[preViewType];
                 switch (nextItemType) {
                     case STICKER_OUT:
                     case MESSAGE_OUT:
@@ -194,22 +195,22 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             }
         }
 
-        public void setTxtMessage(String message){
+        void setTxtMessage(String message){
             if (mContent == null)return;
                 mContent.setText(message);
         }
 
-        public void setUserProfile(String urlPhotoUser){
+        void setUserProfile(String urlPhotoUser){
             if (mUserProfile == null)return;
             // Glide.with(mUserProfile.getContext()).load(urlPhotoUser).centerCrop().transform(new CircleTransform(ivUser.getContext())).override(40,40).into(ivUser);
         }
 
-        public void setTimestamp(String timestamp){
+        void setTimestamp(String timestamp){
             if (mTimeStamp == null)return;
                 mTimeStamp.setText(converteTimestamp(timestamp));
         }
 
-        public void setIvChatPhoto(String url){
+        void setIvChatPhoto(String url){
 //            if (ivChatPhoto == null)return;
 //            Glide.with(ivChatPhoto.getContext()).load(url)
 //                    .override(100, 100)
@@ -218,7 +219,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 //            ivChatPhoto.setOnClickListener(this);
         }
 
-        public void tvIsLocation(int visible){
+        void tvIsLocation(int visible){
 //            if (tvLocation == null)return;
 //            tvLocation.setVisibility(visible);
         }
