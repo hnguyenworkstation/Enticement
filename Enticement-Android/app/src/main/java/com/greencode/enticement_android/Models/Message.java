@@ -1,9 +1,5 @@
 package com.greencode.enticement_android.Models;
 
-/**
- * Created by jasonnguyen on 11/28/16.
- */
-
 public class Message {
 
     public enum MessageType {
