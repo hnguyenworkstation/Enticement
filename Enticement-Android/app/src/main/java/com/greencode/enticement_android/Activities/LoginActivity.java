@@ -17,6 +17,7 @@ import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.GetNameFragment;
+import com.greencode.enticement_android.ViewFragments.GetNicknameFragment;
 import com.greencode.enticement_android.ViewFragments.LoginFragment;
 import com.greencode.enticement_android.ViewFragments.RegisterFragment;
 
@@ -27,7 +28,8 @@ public class LoginActivity extends EnticementActivity
         implements View.OnClickListener,
             LoginFragment.OnFragmentInteractionListener,
             RegisterFragment.OnFragmentInteractionListener,
-            GetNameFragment.OnFragmentInteractionListener {
+            GetNameFragment.OnFragmentInteractionListener,
+            GetNicknameFragment.OnFragmentInteractionListener {
 
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;

@@ -2,7 +2,6 @@ package com.greencode.enticement_android.Enticement;
 
 import android.app.Application;
 
-import com.google.firebase.FirebaseApp;
 import com.greencode.enticement_android.R;
 
 import java.util.Calendar;
@@ -24,13 +23,12 @@ public class EnticementApplication extends Application {
     public static final String TAG = EnticementApplication.class
             .getSimpleName();
     private static EnticementApplication mInstance;
+    private EnticementPreferenceManager mPref;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = EnticementApplication.this;
-
-        FirebaseApp.initializeApp(this);
 
         StickersManager.initialize(getString(R.string.chatroom_stickerapi),this);
         Map<String, String> meta = new HashMap<>();
@@ -57,6 +55,13 @@ public class EnticementApplication extends Application {
         // licence key for inapp purchases
         StickersManager.setLicenseKey("YOUR LICENCE KEY");
         JpushManager.init(this);
+    }
+
+    public EnticementPreferenceManager getPrefManager() {
+        if (mPref == null) {
+            mPref = new EnticementPreferenceManager(this);
+        }
+        return mPref;
     }
 
     public static synchronized EnticementApplication getInstance() {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.Transparent"
-    tools:context="com.greencode.enticement_android.ViewFragments.GetNameFragment">
+    tools:context="com.greencode.enticement_android.ViewFragments.GetNicknameFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="What is your name?"
+                android:text="What should we call you? (Nickname)"
                 android:textColor="@color/white"
                 android:layout_marginBottom="10dp"
                 android:textSize="20sp"/>
@@ -36,8 +36,9 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/InputLayout"
                 >
+
                 <EditText
-                    android:id="@+id/gn_put_name"
+                    android:id="@+id/getnickname.name"
                     android:textColor="@color/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,9 +50,10 @@
             <com.cengalabs.flatui.views.FlatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/gn_next"
+                android:id="@+id/getnickname.next"
+                android:background="@drawable/inactive_button"
                 android:textAllCaps="false"
-                android:text="Continue"
+                android:text="Next"
                 android:layout_gravity="end"/>
         </LinearLayout>
     </FrameLayout>
