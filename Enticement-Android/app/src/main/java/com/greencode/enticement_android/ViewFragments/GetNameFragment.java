@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cengalabs.flatui.views.FlatButton;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.R;
 
 public class GetNameFragment extends Fragment {
@@ -62,7 +63,8 @@ public class GetNameFragment extends Fragment {
     }
 
     private void pushName(String name) {
-
+        EnticementApplication.getInstance().getPrefManager()
+                .getProfile().setName(name);
     }
 
     private boolean isValidName(String name) {

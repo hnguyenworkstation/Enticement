@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cengalabs.flatui.views.FlatButton;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.R;
 
 
@@ -61,9 +62,9 @@ public class GetNicknameFragment extends Fragment {
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mNicknameField.getText().toString();
-                if (isValidNickName(name)) {
-
+                String nickname = mNicknameField.getText().toString();
+                if (isValidNickName(nickname)) {
+                    pushNickname(nickname);
                 } else {
                     mNicknameField.setError(getString(R.string.error_field_required));
                 }
@@ -73,8 +74,9 @@ public class GetNicknameFragment extends Fragment {
         return rootView;
     }
 
-    private void pushNickname(String name) {
-
+    private void pushNickname(String nickname) {
+        EnticementApplication.getInstance().getPrefManager()
+                .getProfile().setNickname(nickname);
     }
 
     private boolean isValidNickName(String name) {

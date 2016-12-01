@@ -15,12 +15,14 @@ import android.widget.ImageButton;
 
 import com.cengalabs.flatui.views.FlatEditText;
 import com.greencode.enticement_android.Activities.MainActivity;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.StringChecker;
 import com.greencode.enticement_android.R;
 
 public class RegisterFragment extends Fragment implements GetNameFragment.OnFragmentInteractionListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final EnticementApplication mInstance = EnticementApplication.getInstance();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -78,7 +80,9 @@ public class RegisterFragment extends Fragment implements GetNameFragment.OnFrag
             @Override
             public void onClick(View v) {
                 // startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                if (true) {
+                if (validateAllFields()) {
+                    // getting email
+                    mInstance.getPrefManager().getProfile().setEmail(mEmailField.getText().toString());
                     ft = getFragmentManager().beginTransaction();
                     ft.setCustomAnimations(R.anim.fade_in_from_right, R.anim.fade_out_to_left);
                     ft.replace(R.id.contentFragment, new GetNameFragment(), "GetNameFragment");
