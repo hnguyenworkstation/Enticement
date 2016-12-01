@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="What should we call you?"
+                android:hint="Enter your name!"
                 android:textColor="@color/white"
                 android:layout_marginBottom="10dp"
                 android:textSize="20sp"/>
@@ -36,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/InputLayout"
                 >
-
                 <EditText
                     android:id="@+id/gn_put_name"
                     android:textColor="@color/colorAccent"
