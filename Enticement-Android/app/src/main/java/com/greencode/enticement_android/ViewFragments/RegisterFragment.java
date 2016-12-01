@@ -15,9 +15,10 @@ import android.widget.ImageButton;
 
 import com.cengalabs.flatui.views.FlatEditText;
 import com.greencode.enticement_android.Activities.MainActivity;
+import com.greencode.enticement_android.Helpers.StringChecker;
 import com.greencode.enticement_android.R;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements GetNameFragment.OnFragmentInteractionListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -76,7 +77,13 @@ public class RegisterFragment extends Fragment {
         mRegButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                // startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                if (true) {
+                    ft = getFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fade_in_from_right, R.anim.fade_out_to_left);
+                    ft.replace(R.id.contentFragment, new GetNameFragment(), "GetNameFragment");
+                    ft.commit();
+                }
             }
         });
 
@@ -92,6 +99,39 @@ public class RegisterFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private boolean validateAllFields() {
+        String email = mEmailField.getText().toString();
+        String password = mPassword.getText().toString();
+        String repass = mConfirmPassword.getText().toString();
+
+        if (email.isEmpty()) {
+            mEmailField.setError("Email is required!");
+            mEmailField.setFocusable(true);
+            return false;
+        } else if (password.isEmpty()) {
+            mPassword.setError("Password is required!");
+            mPassword.setFocusable(true);
+            return false;
+        } else if (repass.isEmpty()) {
+            mConfirmPassword.setError("You must confirm your password!");
+            mConfirmPassword.setFocusable(true);
+            return false;
+        } else if (!password.equals(repass)) {
+            mPassword.setError("Password is required!");
+            mPassword.setFocusable(true);
+            mConfirmPassword.setError("Confirm password doesn't match!");
+            return false;
+        } else {
+            if (StringChecker.validateEmail(email)) {
+                return true;
+            } else {
+                mEmailField.setError("Invalid email address!");
+                mEmailField.setFocusable(true);
+                return false;
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,6 +156,11 @@ public class RegisterFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     public interface OnFragmentInteractionListener {
