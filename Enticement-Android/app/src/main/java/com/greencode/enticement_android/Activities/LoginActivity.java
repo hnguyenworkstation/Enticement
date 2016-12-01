@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.R;
+import com.greencode.enticement_android.ViewFragments.GetBirthdayFragment;
 import com.greencode.enticement_android.ViewFragments.GetNameFragment;
 import com.greencode.enticement_android.ViewFragments.GetNicknameFragment;
 import com.greencode.enticement_android.ViewFragments.LoginFragment;
@@ -29,7 +30,8 @@ public class LoginActivity extends EnticementActivity
             LoginFragment.OnFragmentInteractionListener,
             RegisterFragment.OnFragmentInteractionListener,
             GetNameFragment.OnFragmentInteractionListener,
-            GetNicknameFragment.OnFragmentInteractionListener {
+            GetNicknameFragment.OnFragmentInteractionListener,
+            GetBirthdayFragment.OnFragmentInteractionListener {
 
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -51,14 +53,6 @@ public class LoginActivity extends EnticementActivity
 
         mFragTransition.replace(R.id.contentFragment, loginFragment);
         mFragTransition.commit();
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
-        adapter.addFragment(new LoginFragment(), "Login");
-        adapter.addFragment(new RegisterFragment(), "Register");
-
-        viewPager.setAdapter(adapter);
     }
 
     @Override

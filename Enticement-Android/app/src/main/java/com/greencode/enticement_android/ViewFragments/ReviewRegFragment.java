@@ -4,18 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
-import com.cengalabs.flatui.views.FlatButton;
-import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.R;
 
-
-public class GetNicknameFragment extends Fragment {
+public class ReviewRegFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,15 +21,22 @@ public class GetNicknameFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private FlatButton mNext;
-    private EditText mNicknameField;
-    private View rootView;
 
-    public GetNicknameFragment() {
+    public ReviewRegFragment() {
+        // Required empty public constructor
     }
 
-    public static GetNicknameFragment newInstance(String param1, String param2) {
-        GetNicknameFragment fragment = new GetNicknameFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ReviewRegFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ReviewRegFragment newInstance(String param1, String param2) {
+        ReviewRegFragment fragment = new ReviewRegFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,38 +57,7 @@ public class GetNicknameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_get_nickname, container, false);
-        mNicknameField = (EditText) rootView.findViewById(R.id.getnickname_name);
-
-        mNext = (FlatButton) rootView.findViewById(R.id.getnickname_next);
-        mNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nickname = mNicknameField.getText().toString();
-                if (isValidNickName(nickname)) {
-                    pushNickname(nickname);
-                    final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.contentFragment, new GetBirthdayFragment(), "GetBirthday");
-                    ft.commit();
-                } else {
-                    mNicknameField.setError(getString(R.string.error_field_required));
-                }
-            }
-        });
-
-        return rootView;
-    }
-
-    private void pushNickname(String nickname) {
-        EnticementApplication.getInstance().getPrefManager()
-                .getProfile().setNickname(nickname);
-    }
-
-    private boolean isValidNickName(String name) {
-        if (name == null) {
-            return false;
-        }
-        return true;
+        return inflater.inflate(R.layout.fragment_review_reg, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,6 +84,16 @@ public class GetNicknameFragment extends Fragment {
         mListener = null;
     }
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

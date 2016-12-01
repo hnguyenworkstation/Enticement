@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.Transparent"
+    tools:context="com.greencode.enticement_android.ViewFragments.GetBirthdayFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="What is your birthday?"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp"/>
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/InputLayout"
+                >
+                <TextView
+                    android:id="@+id/getbd.bdinput"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=""
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputEditText>
+
+            <com.cengalabs.flatui.views.FlatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/getbd.nextbtn"
+                android:textAllCaps="false"
+                android:text="Continue"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>
