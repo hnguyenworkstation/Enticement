@@ -10,17 +10,19 @@ public class MyProfile {
     String email;
     String name;
     String nickname;
+    String birthday;
     String created_at;
 
     public MyProfile() {
 
     }
 
-    public MyProfile(String id, String name, String nickname, String created_at) {
+    public MyProfile(String id, String name, String nickname, String created_at, String birthday) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
         this.created_at = created_at;
+        this.birthday = birthday;
     }
 
     public String getName() {
@@ -61,5 +63,13 @@ public class MyProfile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

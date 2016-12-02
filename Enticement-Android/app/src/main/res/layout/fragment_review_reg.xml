@@ -96,7 +96,7 @@
             <com.cengalabs.flatui.views.FlatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/review.next"
+                android:id="@+id/review.finish"
                 android:background="@drawable/inactive_button"
                 android:textAllCaps="false"
                 android:text="FINISH"
