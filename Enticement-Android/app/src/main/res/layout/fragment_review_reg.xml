@@ -1,13 +1,107 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.Transparent"
     tools:context="com.greencode.enticement_android.ViewFragments.ReviewRegFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Review Infomation"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/chatroom_ava_size"
+                    android:layout_height="@dimen/chatroom_ava_size"
+                    android:src="@drawable/logo_image"
+                    android:id="@+id/review.profileimg"
+                    android:layout_marginEnd="@dimen/margin_4"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/InputLayout"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/margin_4"
+                    >
+
+                    <EditText
+                        android:id="@+id/review.name"
+                        android:textColor="@color/colorAccent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:inputType="textAutoComplete"
+                        android:maxLines="1" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/InputLayout"
+                >
+
+                <EditText
+                    android:id="@+id/review.nickname"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nickname"
+                    android:inputType="textAutoComplete"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/InputLayout"
+                >
+
+                <EditText
+                    android:id="@+id/review.birthday"
+                    android:textColor="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Birthday"
+                    android:inputType="textAutoComplete"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <com.cengalabs.flatui.views.FlatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/review.next"
+                android:background="@drawable/inactive_button"
+                android:textAllCaps="false"
+                android:text="FINISH"
+                android:textStyle="bold"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>
