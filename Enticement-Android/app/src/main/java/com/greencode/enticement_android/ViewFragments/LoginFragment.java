@@ -38,12 +38,16 @@ import android.widget.Toast;
 import com.cengalabs.flatui.views.FlatEditText;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Helpers.AppUtils;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.R;
 
 import java.util.ArrayList;
@@ -278,8 +282,36 @@ public class LoginFragment extends Fragment implements View.OnClickListener,
             focusView.requestFocus();
         } else {
             showProgress(true);
-            //authenticate user
-            // Todo: Authenticate User
+            // authenticate user
+            Firebase.mFBAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                    if (!task.isSuccessful()) {
+                        Log.w(TAG, "signInWithEmail:failed", task.getException());
+                        Toast.makeText(getContext(), task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        try {
+                            Firebase.getNewUserProfile();
+                            AppUtils.showToast(String.format("Name: %s Nickname: %s",
+                                    EnticementApplication.getInstance().getPrefManager().getProfile().getName(),
+                                    EnticementApplication.getInstance().getPrefManager().getProfile().getNickname())
+                                        , getContext(), Toast.LENGTH_LONG);
+                        } catch (Exception e) {
+                            AppUtils.showToast("Fetching user data failed!", getContext(), Toast.LENGTH_LONG);
+                        }
+                    }
+
+                    showProgress(false);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    showProgress(false);
+                }
+            });
         }
     }
 
