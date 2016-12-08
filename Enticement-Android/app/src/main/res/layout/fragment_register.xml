@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/active_button"
                     android:layout_marginTop="25dp"
-                    android:text="@string/action_sign_in"
+                    android:text="@string/register_link"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:textSize="18sp"
                     android:textStyle="bold"
