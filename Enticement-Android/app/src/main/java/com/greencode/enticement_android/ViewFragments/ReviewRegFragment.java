@@ -1,24 +1,34 @@
 package com.greencode.enticement_android.ViewFragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatButton;
+import com.greencode.enticement_android.Activities.MainActivity;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Manifest;
 import com.greencode.enticement_android.R;
 
 public class ReviewRegFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int GALLERY_REQUEST = 1;
 
     private String mParam1;
     private String mParam2;
@@ -29,6 +39,7 @@ public class ReviewRegFragment extends Fragment {
     private EditText mNicknameEtxt;
     private EditText mBirthdayEtxt;
     private FlatButton mFinishBtn;
+    private ImageView mProfileView;
 
     public ReviewRegFragment() {
         // Required empty public constructor
@@ -63,14 +74,39 @@ public class ReviewRegFragment extends Fragment {
         mBirthdayEtxt = (EditText) view.findViewById(R.id.review_birthday);
         mFinishBtn = (FlatButton) view.findViewById(R.id.review_finish);
 
+        mProfileView = (ImageView) view.findViewById(R.id.review_profileimg);
+        mProfileView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (Build.VERSION.SDK_INT >= 23 && getActivity().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // request permission until user accept it
+                    getActivity().requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 4);
+                    return false;
+                }
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_REQUEST);
+                return true;
+            }
+        });
+
         mFinishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateAllField()) {
-                    // register current profile to Firebase
-                    Firebase.registerNewUser(EnticementApplication.getInstance()
-                            .getPrefManager()
-                            .getProfile());
+                    try {
+                        // register current profile to Firebase
+                        Firebase.registerNewUser(EnticementApplication.getInstance()
+                                .getPrefManager()
+                                .getProfile());
+                        getActivity().finish();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_down_out, R.anim.slide_down_out);
+                    } catch (RuntimeException e) {
+                        AppUtils.showToast("Failed to register!", getContext(), Toast.LENGTH_LONG);
+                    }
                 }
             }
         });
@@ -106,16 +142,6 @@ public class ReviewRegFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
