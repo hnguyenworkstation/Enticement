@@ -16,6 +16,7 @@ public class Firebase {
     public static DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
     public static final String USER_ID = "user_id";
+    public static final String USER_EMAIL = "user_email";
     public static final String USER_NAME = "user_name";
     public static final String USER_NICKNAME = "user_nickname";
     public static final String USER_BIRTHDAY = "user_birthday";
@@ -25,6 +26,11 @@ public class Firebase {
         Map<String, Object> mapUser = new HashMap<>();
         String key = UserRef.push().getKey();
         mapUser.put(USER_ID, key);
-        mapUser.put(USER_NAME, myProfile.getName());
+        mapUser.put(USER_EMAIL, myProfile.getEmail());
+        mapUser.put(USER_NAME, "Hung Nguyen");
+        mapUser.put(USER_NICKNAME, "Administrator");
+        mapUser.put(USER_CREATEDAT, String.valueOf(System.currentTimeMillis()));
+        mapUser.put(USER_BIRTHDAY, String.valueOf(System.currentTimeMillis() - 34 * 60 * 60 * 1000));
+        UserRef.child(key).updateChildren(mapUser);
     }
 }
