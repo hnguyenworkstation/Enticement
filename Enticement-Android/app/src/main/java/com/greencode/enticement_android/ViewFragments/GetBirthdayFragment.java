@@ -1,40 +1,35 @@
 package com.greencode.enticement_android.ViewFragments;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.cengalabs.flatui.views.FlatButton;
 import com.greencode.enticement_android.R;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class GetBirthdayFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final SimpleDateFormat mFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-
     private EditText mBirthdayView;
     private FlatButton mButton;
-    private DatePickerDialog mDatePicker;
     private int mBirthYear;
     private String mBirthTime;
 
@@ -72,26 +67,13 @@ public class GetBirthdayFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_get_birthday, container, false);
 
-        Calendar cal = Calendar.getInstance();
-
-        mDatePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                mBirthYear = year;
-                mBirthTime = newDate.getTime().toString();
-                mBirthdayView.setText(mFormat.format(mBirthTime));
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-
         mBirthdayView = (EditText) view.findViewById(R.id.getbd_bdinput);
         mBirthdayView.setInputType(InputType.TYPE_NULL);
         mBirthdayView.requestFocus();
         mBirthdayView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment newFragment = new TimePickerFragment();
+                DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
             }
         });
@@ -144,23 +126,29 @@ public class GetBirthdayFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener {
+    public static void setDate(Calendar cal) {
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
+            // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateFormat.is24HourFormat(getActivity()));
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            Calendar cal = new GregorianCalendar(year, month, day);
+            setDate(cal);
         }
     }
 }

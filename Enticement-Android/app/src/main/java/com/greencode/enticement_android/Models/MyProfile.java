@@ -12,17 +12,20 @@ public class MyProfile {
     String nickname;
     String birthday;
     String created_at;
+    String profile_url;
 
     public MyProfile() {
 
     }
 
-    public MyProfile(String id, String name, String nickname, String created_at, String birthday) {
+    public MyProfile(String id, String name, String nickname, String created_at, String birthday,
+                     String profile_url) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
         this.created_at = created_at;
         this.birthday = birthday;
+        this.profile_url = profile_url;
     }
 
     public String getName() {
@@ -71,5 +74,13 @@ public class MyProfile {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getProfile_url() {
+        return profile_url;
+    }
+
+    public void setProfile_url(String profile_url) {
+        this.profile_url = profile_url;
     }
 }

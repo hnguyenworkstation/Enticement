@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.cengalabs.flatui.views.FlatButton;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Enticement.EnticementPreferenceManager;
 import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.R;
 
@@ -25,9 +27,11 @@ public class ReviewRegFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private final EnticementPreferenceManager mPref = EnticementApplication.getInstance().getPrefManager();
     private EditText mNameEtxt;
     private EditText mNicknameEtxt;
     private EditText mBirthdayEtxt;
+    private ImageView mImageView;
     private FlatButton mFinishBtn;
 
     public ReviewRegFragment() {
@@ -59,6 +63,14 @@ public class ReviewRegFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_review_reg, container, false);
 
         mNameEtxt = (EditText) view.findViewById(R.id.review_name);
+        mImageView = (ImageView) view.findViewById(R.id.review_profileimg);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         mNicknameEtxt = (EditText) view.findViewById(R.id.review_nickname);
         mBirthdayEtxt = (EditText) view.findViewById(R.id.review_birthday);
         mFinishBtn = (FlatButton) view.findViewById(R.id.review_finish);
@@ -67,10 +79,12 @@ public class ReviewRegFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(validateAllField()) {
+                    mPref.getProfile().setNickname(mNicknameEtxt.getText().toString());
+                    mPref.getProfile().setName(mNameEtxt.getText().toString());
+                    mPref.getProfile().setBirthday(mBirthdayEtxt.getText().toString());
+
                     // register current profile to Firebase
-                    Firebase.registerNewUser(EnticementApplication.getInstance()
-                            .getPrefManager()
-                            .getProfile());
+                    Firebase.registerNewUser(mPref.getProfile());
                 }
             }
         });
