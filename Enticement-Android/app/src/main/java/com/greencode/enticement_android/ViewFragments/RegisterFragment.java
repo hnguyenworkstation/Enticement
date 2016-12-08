@@ -1,9 +1,14 @@
 package com.greencode.enticement_android.ViewFragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -12,10 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatEditText;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.greencode.enticement_android.Activities.MainActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.Helpers.StringChecker;
 import com.greencode.enticement_android.R;
 
@@ -81,12 +91,32 @@ public class RegisterFragment extends Fragment implements GetNameFragment.OnFrag
             public void onClick(View v) {
                 // startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 if (validateAllFields()) {
-                    // getting email
-                    mInstance.getPrefManager().getProfile().setEmail(mEmailField.getText().toString());
-                    ft = getFragmentManager().beginTransaction();
-                    ft.setCustomAnimations(R.anim.fade_in_from_right, R.anim.fade_out_to_left);
-                    ft.replace(R.id.contentFragment, new GetNameFragment(), "GetNameFragment");
-                    ft.commit();
+                    showProgress(true);
+                    Firebase.mFBAuth.createUserWithEmailAndPassword(
+                            mEmailField.getText().toString()
+                            , mPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Toast.makeText(getContext(), "createUserWithEmail:onComplete:"
+                                    + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                            showProgress(false);
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Authentication failed." + task.getException(),
+                                        Toast.LENGTH_SHORT).show();
+                                if (task.getException()
+                                        .getMessage()
+                                        .contains(getString(R.string.error_duplicate_email))){
+                                    // Todo: show a dialog asking for reset password
+                                }
+                            } else {
+                                mInstance.getPrefManager().getProfile().setEmail(mEmailField.getText().toString());
+                                ft = getFragmentManager().beginTransaction();
+                                ft.setCustomAnimations(R.anim.fade_in_from_right, R.anim.fade_out_to_left);
+                                ft.replace(R.id.contentFragment, new GetNameFragment(), "GetNameFragment");
+                                ft.commit();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -103,6 +133,36 @@ public class RegisterFragment extends Fragment implements GetNameFragment.OnFrag
         });
 
         return rootView;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mRegisterView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRegisterView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mRegisterView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mRegisterView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
     private boolean validateAllFields() {

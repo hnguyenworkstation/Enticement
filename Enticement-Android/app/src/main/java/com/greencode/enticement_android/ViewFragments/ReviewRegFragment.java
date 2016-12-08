@@ -96,14 +96,14 @@ public class ReviewRegFragment extends Fragment {
                 if(validateAllField()) {
                     try {
                         // register current profile to Firebase
-                        Firebase.registerNewUser(EnticementApplication.getInstance()
+                        Firebase.setNewUserProfile(EnticementApplication.getInstance()
                                 .getPrefManager()
                                 .getProfile());
                         getActivity().finish();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.slide_down_out, R.anim.slide_down_out);
+                        getActivity().overridePendingTransition(R.anim.sp_slide_out_down, R.anim.slide_out_to_bottom);
                     } catch (RuntimeException e) {
                         AppUtils.showToast("Failed to register!", getContext(), Toast.LENGTH_LONG);
                     }
