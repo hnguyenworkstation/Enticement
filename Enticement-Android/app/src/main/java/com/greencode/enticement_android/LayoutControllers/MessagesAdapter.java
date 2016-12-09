@@ -38,12 +38,18 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     private static final int LEFT_MSG_IMG = 3;
 
     private final SimpleDateFormat MESSAGE_TIME_FORMAT = new SimpleDateFormat("M/dd, k:mm", Locale.US);
+    private static OnClickChatScreenListener mListener;
+
 
     private Context mContext;
 
     public MessagesAdapter(DatabaseReference ref, Context context) {
         super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class, ref);
         this.mContext = context;
+    }
+
+    public void setOnChatScreenClickListener(OnClickChatScreenListener listener) {
+        mListener = listener;
     }
 
     @Override
@@ -224,6 +230,16 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 //            tvLocation.setVisibility(visible);
         }
 
+    }
+
+    public interface OnClickChatScreenListener {
+        void onErrorMessageClick(View view);
+
+        void onMessageClick(View view, int position);
+
+        void onStickerMessageClick(View view, int position);
+
+        void onMessageImageClick(View view, int position);
     }
 
     private CharSequence converteTimestamp(String mileSegundos){

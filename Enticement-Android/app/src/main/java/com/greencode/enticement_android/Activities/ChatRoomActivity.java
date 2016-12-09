@@ -49,6 +49,7 @@ public class ChatRoomActivity extends EnticementActivity {
     private StickersKeyboardController mStickerKeyboardController;
     private MessagesAdapter mAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private int mPreviousPositionItemClick = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +135,46 @@ public class ChatRoomActivity extends EnticementActivity {
                 }
             }
         });
+        mAdapter.setOnChatScreenClickListener(new MessagesAdapter.OnClickChatScreenListener() {
+            @Override
+            public void onErrorMessageClick(View view) {
+
+            }
+
+            @Override
+            public void onMessageClick(View view, int position) {
+                showStatus(position);
+                Message item = mAdapter.getItem(position);
+                if (item != null) {
+                    boolean isSet = item.getVisibilityDate();
+                    item.setVisibilityDate(!isSet);
+                    mAdapter.notifyDataSetChanged();
+                }
+                mPreviousPositionItemClick = position;
+            }
+
+            @Override
+            public void onStickerMessageClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onMessageImageClick(View view, int position) {
+
+            }
+        });
 
         mListMsgView.setLayoutManager(mLinearLayoutManager);
         mListMsgView.setAdapter(mAdapter);
+    }
+
+    private void showStatus(int currentPos) {
+        if (currentPos != mPreviousPositionItemClick &&
+                mPreviousPositionItemClick != -1 && mAdapter.getItemCount() > mPreviousPositionItemClick) {
+            Message previousItem = mAdapter.getItem(mPreviousPositionItemClick);
+            if (previousItem != null)
+                previousItem.setVisibilityDate(false);
+        }
     }
 
     @Override

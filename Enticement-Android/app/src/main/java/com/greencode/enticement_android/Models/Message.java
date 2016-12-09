@@ -2,6 +2,11 @@ package com.greencode.enticement_android.Models;
 
 public class Message {
 
+    private boolean isChecked = false;
+    private boolean isWarning = false;
+    private boolean mIsShowSentStatus = false;
+    private boolean mIsShowDate = false;
+
     public enum MessageType {
         MESSAGE_OUT,
         MESSAGE_IN,
@@ -33,5 +38,21 @@ public class Message {
 
     public long getTime() {
         return time;
+    }
+
+    public boolean getVisibilityStatus(){
+        return this.mIsShowSentStatus;
+    }
+
+    public void setVisibilityStatus(boolean status){
+        this.mIsShowSentStatus = status;
+    }
+
+    public boolean getVisibilityDate(){
+        return this.mIsShowDate;
+    }
+
+    public void setVisibilityDate(boolean status){
+        this.mIsShowDate = status;
     }
 }
