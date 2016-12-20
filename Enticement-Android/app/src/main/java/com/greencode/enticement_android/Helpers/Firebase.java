@@ -20,6 +20,7 @@ import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Models.MyProfile;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -76,13 +77,14 @@ public class Firebase {
                 * - user name
                 * - user nickname
                 * */
-                newProfile.setBirthday(dataSnapshot.getValue().toString());
-                newProfile.setCreated_at(dataSnapshot.getValue().toString());
-                newProfile.setEmail(dataSnapshot.getValue().toString());
-                newProfile.setId(dataSnapshot.getValue().toString());
-                newProfile.setName(dataSnapshot.getValue().toString());
-                newProfile.setNickname(dataSnapshot.getValue().toString());
-                newProfile.setProfile_url(dataSnapshot.getValue().toString());
+
+                newProfile.setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
+                newProfile.setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
+                newProfile.setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
+                newProfile.setId(dataSnapshot.child(USER_ID).getValue().toString());
+                newProfile.setName(dataSnapshot.child(USER_NAME).getValue().toString());
+                newProfile.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+                newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
 
                 // update new profile to the application to get right preferences
                 EnticementApplication.getInstance().getPrefManager().setProfile(newProfile);
