@@ -48,6 +48,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Models.MyProfile;
 import com.greencode.enticement_android.R;
 
 import java.util.ArrayList;
@@ -295,13 +296,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener,
                     } else {
                         try {
                             Firebase.getNewUserProfile();
-                            AppUtils.showToast(String.format("Name: %s Nickname: %s",
-                                    EnticementApplication.getInstance().getPrefManager().getProfile().getName(),
-                                    EnticementApplication.getInstance().getPrefManager().getProfile().getNickname())
-                                        , getContext(), Toast.LENGTH_LONG);
                         } catch (Exception e) {
                             AppUtils.showToast("Fetching user data failed!", getContext(), Toast.LENGTH_LONG);
                         }
+
+                        MyProfile myProfile = EnticementApplication.getInstance().getPrefManager().getProfile();
+                        AppUtils.showToast("Name: " + myProfile.getName()
+                                        +  "Nickname:" + myProfile.getNickname()
+                                , getContext(), Toast.LENGTH_LONG);
                     }
 
                     showProgress(false);

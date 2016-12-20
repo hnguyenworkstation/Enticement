@@ -1,6 +1,7 @@
 package com.greencode.enticement_android.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.greencode.enticement_android.Enticement.EnticementActivity;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.GetBirthdayFragment;
@@ -46,8 +48,15 @@ public class LoginActivity extends EnticementActivity
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
+
+        if (EnticementApplication.getInstance().getPrefManager().getProfile() != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            this.finish();
+        }
+
         overridePendingTransition(R.anim.fix_anim, R.anim.fix_anim);
         setContentView(R.layout.activity_login);
+
 
         loginFragment = new LoginFragment();
         mFragManager = getSupportFragmentManager();

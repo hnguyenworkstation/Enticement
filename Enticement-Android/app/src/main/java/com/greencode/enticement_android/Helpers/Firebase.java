@@ -57,7 +57,7 @@ public class Firebase {
             mapUser.put(USER_PROFILEURL, myProfile.getProfile_url());
         }
 
-        UserRef.child(id).push().setValue(mapUser);
+        UserRef.child(id).updateChildren(mapUser);
     }
 
     public static void getNewUserProfile() {
@@ -84,7 +84,7 @@ public class Firebase {
                 newProfile.setId(dataSnapshot.child(USER_ID).getValue().toString());
                 newProfile.setName(dataSnapshot.child(USER_NAME).getValue().toString());
                 newProfile.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
-                newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
+                // newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
 
                 // update new profile to the application to get right preferences
                 EnticementApplication.getInstance().getPrefManager().setProfile(newProfile);
