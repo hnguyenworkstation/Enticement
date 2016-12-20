@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -28,12 +31,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
-import com.greencode.enticement_android.Manifest;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
@@ -54,7 +55,6 @@ public class MainActivity extends EnticementActivity
             GroupAroundFragment.OnListFragmentInteractionListener {
 
     private ViewPager mViewPager;
-
     private View rootLayout;
     private boolean isTransforming;
     private ViewPagerAdapter adapter;
@@ -82,6 +82,8 @@ public class MainActivity extends EnticementActivity
     private final int CHATROOM_POS = 1;
     private static final int REQUEST_LOCATION_ACCESS = 0;
     private final int REQUEST_CODE_AUTOCOMPLETE = 1;
+
+    private final EnticementApplication mInstance = EnticementApplication.getInstance();
 
     private final int[] mTabsIcons = {
             R.drawable.ic_home_white_24dp,
@@ -158,6 +160,41 @@ public class MainActivity extends EnticementActivity
                 mTabLayout.getTabAt(i).setIcon(mTabsIcons[i]);
             }
         }
+
+        if (mInstance.getPrefManager().getCurrentLocation() == null) {
+            fetchLocation();
+        }
+    }
+
+    @Nullable
+    private boolean fetchLocation() {
+        if (mayRequestPermissions()) {
+            LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager != null) {
+                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    requestPermission();
+                }
+
+                Location lastKnownLocationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                if (lastKnownLocationGPS != null) {
+                    mInstance.getPrefManager().setCurrentLocation(lastKnownLocationGPS);
+                    mInstance.getPrefManager().setVisitLocation(lastKnownLocationGPS);
+                    return true;
+                } else {
+                    mInstance.getPrefManager().setCurrentLocation(locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER));
+                    mInstance.getPrefManager().setVisitLocation(locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER));
+                    return true;
+                }
+            }
+        } else {
+            requestPermission();
+        }
+
+        return false;
     }
 
     private boolean mayRequestPermissions() {

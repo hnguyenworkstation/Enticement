@@ -2,7 +2,14 @@ package com.greencode.enticement_android.Enticement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 
+import com.greencode.enticement_android.Manifest;
 import com.greencode.enticement_android.Models.MyProfile;
 
 /**
@@ -15,6 +22,8 @@ public class EnticementPreferenceManager {
     private SharedPreferences mPref;
     private SharedPreferences.Editor mPrefEditor;
     private Context mContext;
+    private Location mCurrentLocation;
+    private Location mVisitLocation;
 
     private MyProfile mProfile;
 
@@ -33,6 +42,22 @@ public class EnticementPreferenceManager {
         mPref = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         mPrefEditor = mPref.edit();
         mProfile = new MyProfile();
+    }
+
+    public Location getVisitLocation() {
+        return mVisitLocation;
+    }
+
+    public void setVisitLocation(Location mVisitLocation) {
+        this.mVisitLocation = mVisitLocation;
+    }
+
+    public Location getCurrentLocation() {
+        return mCurrentLocation;
+    }
+
+    public void setCurrentLocation(Location mCurrentLocation) {
+        this.mCurrentLocation = mCurrentLocation;
     }
 
     public MyProfile getProfile() {

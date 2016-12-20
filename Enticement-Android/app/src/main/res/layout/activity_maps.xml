@@ -33,9 +33,9 @@
 
         <ImageView
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="45dp"
             android:src="@drawable/ic_location_black"
-            android:paddingBottom="7dp"
+            android:paddingBottom="17dp"
             />
     </LinearLayout>
 
