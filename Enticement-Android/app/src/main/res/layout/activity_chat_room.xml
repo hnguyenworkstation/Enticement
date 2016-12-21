@@ -13,22 +13,29 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/cract.toolbar"
+        
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/chatroom_toolbar"
-            app:contentInsetLeft="@dimen/material_72"
-            app:contentInsetStart="@dimen/material_72"
-            app:title="@string/app_name"/>
+            android:id="@+id/cract.toolbarview"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:layout_gravity="top">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/cract.toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/chatroom_toolbar"
+                app:contentInsetLeft="@dimen/material_72"
+                app:contentInsetStart="@dimen/material_72"
+                app:title="@string/app_name"/>
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cract.msgrecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/cract.inputrow"
-            android:layout_below="@id/cract.toolbar"
+            android:layout_below="@id/cract.toolbarview"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"/>
 

@@ -12,6 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
@@ -206,6 +209,32 @@ public class ChatRoomActivity extends EnticementActivity {
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chatroom_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.crmenu_phonecall:
+                Toast.makeText(this, "Phone Call", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.crmenu_videocall:
+                Toast.makeText(this, "Video Call", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.crmenu_more:
+                Toast.makeText(this, "More", Toast.LENGTH_SHORT).show();
+                return true;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void sendMessage(String message, boolean isFromMe, long time) {
         if (TextUtils.isEmpty(message)) {
