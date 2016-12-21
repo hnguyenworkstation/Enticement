@@ -73,6 +73,10 @@
     <!-- Map String -->
     <string name="dropoff">Drop me here!</string>
     <string name="map_title">Location</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="reload_message">Do you want to reload your current location?</string>
+    <string name="reload_title">Reload</string>
 
     <!-- Chatroom Strings-->
     <string name="chatroom_stickerapi">024340accc66bf40e38f30c1369ac480</string>
