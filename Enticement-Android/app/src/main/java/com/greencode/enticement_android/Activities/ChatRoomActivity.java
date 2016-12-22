@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,11 +48,11 @@ import vc908.stickerpipe.gcmintegration.NotificationManager;
 
 public class ChatRoomActivity extends EnticementActivity {
 
-    private List<Message> items = new ArrayList<>();
     private EditText mInputMsg;
     private RecyclerView mListMsgView;
     private StickersKeyboardController mStickerKeyboardController;
     private MessagesAdapter mAdapter;
+    private ImageView buttonSend;
     private LinearLayoutManager mLinearLayoutManager;
     private int mPreviousPositionItemClick = -1;
 
@@ -65,13 +67,33 @@ public class ChatRoomActivity extends EnticementActivity {
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.chatroom_toolbar));
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
+        assert actionbar != null;
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         mListMsgView = (RecyclerView) findViewById(R.id.cract_msgrecycler);
         initMessagesRecycler();
 
         mInputMsg = (EditText) findViewById(R.id.cract_inputtext);
-        ImageView buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
+        transformSendBtn(mInputMsg);
+
+        mInputMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                transformSendBtn(mInputMsg);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
         buttonSend.setColorFilter(ContextCompat.getColor(this, R.color.chatroom_toolbar));
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +139,16 @@ public class ChatRoomActivity extends EnticementActivity {
             }
         });
 
-        addMockData();
         processIntent(getIntent());
+    }
+
+    private void transformSendBtn(EditText currentInput) {
+        String currentMessage = currentInput.getText().toString();
+        if (currentMessage.length() > 0) {
+            buttonSend.setEnabled(true);
+        } else {
+            buttonSend.setEnabled(false);
+        }
     }
 
     private void initMessagesRecycler() {
@@ -189,13 +219,6 @@ public class ChatRoomActivity extends EnticementActivity {
     private void processIntent(Intent intent) {
         NotificationManager.processIntent(this, intent, mStickerKeyboardController);
     }
-
-    private void addMockData() {
-        long yesterdayTime = System.currentTimeMillis() - 34 * 60 * 60 * 1000;
-        sendMessage("Hi!", true, yesterdayTime - 60 * 1000);
-        sendMessage("[[1419]]", true, yesterdayTime - 55 * 1000);
-    }
-
 
     private OnStickerSelectedListener stickerSelectedListener = new OnStickerSelectedListener() {
         @Override
