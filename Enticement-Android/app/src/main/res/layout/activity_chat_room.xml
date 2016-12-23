@@ -83,6 +83,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="@string/chatroom_inputhint"
+                android:focusable="true"
                 android:nextFocusLeft="@id/cract.inputtext"
                 android:nextFocusUp="@id/cract.inputtext"
                 android:textSize="@dimen/text_14"/>
