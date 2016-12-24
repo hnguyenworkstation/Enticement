@@ -8,45 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.greencode.enticement_android.Models.ChatRooms;
-import com.greencode.enticement_android.Models.DummyContent;
-import com.greencode.enticement_android.Models.Users;
+import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyChatRoomRecyclerViewAdapter extends  RecyclerView.Adapter<MyChatRoomRecyclerViewAdapter.ViewHolder>{
-    private List<ChatRooms.ChatRoom> listRooms = new ArrayList<>();
+    private List<ChatRoom> listRooms = new ArrayList<>();
     private Context mContext;
 
     public MyChatRoomRecyclerViewAdapter(Context context) {
         this.mContext = context;
-
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-        listRooms.add(new ChatRooms.ChatRoom("12", "Hung Q Nguyen", "hello", "Today", new Users.User("1", "Hung Q Nguyen", "abc")));
-
     }
 
     @Override
@@ -63,7 +36,7 @@ public class MyChatRoomRecyclerViewAdapter extends  RecyclerView.Adapter<MyChatR
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        ChatRooms.ChatRoom roomModel = listRooms.get(position);
+        ChatRoom roomModel = listRooms.get(position);
         viewHolder.setAvatar(roomModel.getUser().getImageURL());
         viewHolder.setName(roomModel.getUser().getName());
         viewHolder.setLastMsg(roomModel.getLastMessage());

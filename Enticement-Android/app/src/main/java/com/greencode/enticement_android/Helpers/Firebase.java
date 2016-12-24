@@ -17,10 +17,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.Models.MyProfile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,16 +33,23 @@ import java.util.Map;
 public class Firebase {
     public static final FirebaseAuth mFBAuth = FirebaseAuth.getInstance();
     public static final DatabaseReference ChatRoomRef = FirebaseDatabase.getInstance().getReference().child("Chatroom");
-    public static final DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
-    public static final StorageReference UserProfileStorage = FirebaseStorage.getInstance().getReference().child("User_Profile");
+    private static final DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+    private static final StorageReference UserProfileStorage = FirebaseStorage.getInstance().getReference().child("User_Profile");
 
-    public static final String USER_ID = "user_id";
-    public static final String USER_EMAIL = "user_email";
-    public static final String USER_NAME = "user_name";
-    public static final String USER_NICKNAME = "user_nickname";
-    public static final String USER_BIRTHDAY = "user_birthday";
-    public static final String USER_CREATEDAT = "user_created_at";
-    public static final String USER_PROFILEURL = "user_profileurl";
+    /*USER FIELDS*/
+    private static final String USER_ID = "user_id";
+    private static final String USER_EMAIL = "user_email";
+    private static final String USER_NAME = "user_name";
+    private static final String USER_NICKNAME = "user_nickname";
+    private static final String USER_BIRTHDAY = "user_birthday";
+    private static final String USER_CREATEDAT = "user_created_at";
+    private static final String USER_PROFILEURL = "user_profileurl";
+
+    /*CHATROOM FIELDS*/
+    private static final String CHATROOM_CREATEDAT = "chatroom_created_at";
+    private static final String CHATROOM_USER1 = "chatroom_user1";
+    private static final String CHATROOM_USER2 = "chatroom_user2";
+    private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
 
     public static void setNewUserProfile(MyProfile myProfile) {
         Map<String, Object> mapUser = new HashMap<>();
@@ -114,5 +124,24 @@ public class Firebase {
                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static void createChatroom(String withID) {
+        Map<String, Object> mapChatroom = new HashMap<>();
+        String id = mFBAuth.getCurrentUser().getUid();
+        mapChatroom.put(CHATROOM_CREATEDAT, String.valueOf(System.currentTimeMillis()));
+        mapChatroom.put(CHATROOM_USER1, id);
+        mapChatroom.put(CHATROOM_USER2, withID);
+        mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
+
+        ChatRoomRef.push().setValue(mapChatroom);
+    }
+
+    public static List<ChatRoom> retrieveChatRooms() {
+        List<ChatRoom> list = new ArrayList<>();
+
+
+
+        return list;
     }
 }

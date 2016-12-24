@@ -179,7 +179,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
                     case MESSAGE_OUT:
                         if (currentItemType == Message.MessageType.MESSAGE_OUT
                                 || currentItemType == Message.MessageType.STICKER_OUT) {
-                            hideTime();
+                            setTime(time);
                         } else {
                             setTime(time);
                         }
@@ -188,7 +188,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
                     case MESSAGE_IN:
                         if (currentItemType == Message.MessageType.MESSAGE_IN
                                 || currentItemType == Message.MessageType.STICKER_IN) {
-                            hideTime();
+                            setTime(time);
                         } else {
                             setTime(time);
                         }

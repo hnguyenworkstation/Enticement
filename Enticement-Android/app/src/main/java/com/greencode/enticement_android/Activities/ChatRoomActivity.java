@@ -70,6 +70,16 @@ public class ChatRoomActivity extends EnticementActivity {
         assert actionbar != null;
         actionbar.setDisplayHomeAsUpEnabled(true);
 
+        buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
+        buttonSend.setColorFilter(ContextCompat.getColor(this, R.color.chatroom_toolbar));
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = mInputMsg.getText().toString();
+                sendMessage(message, false, System.currentTimeMillis());
+            }
+        });
+
         mListMsgView = (RecyclerView) findViewById(R.id.cract_msgrecycler);
         initMessagesRecycler();
 
@@ -90,16 +100,6 @@ public class ChatRoomActivity extends EnticementActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
-            }
-        });
-
-        buttonSend = (ImageView) findViewById(R.id.cract_sendbtn);
-        buttonSend.setColorFilter(ContextCompat.getColor(this, R.color.chatroom_toolbar));
-        buttonSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String message = mInputMsg.getText().toString();
-                sendMessage(message, false, System.currentTimeMillis());
             }
         });
 
