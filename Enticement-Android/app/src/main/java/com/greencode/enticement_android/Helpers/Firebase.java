@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Models.ChatRoom;
+import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.Models.MyProfile;
 
 import java.util.ArrayList;
@@ -135,6 +136,10 @@ public class Firebase {
         mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
 
         ChatRoomRef.push().setValue(mapChatroom);
+    }
+
+    public static void pushPlainMessage(String roomId, Message message) {
+        ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(message);
     }
 
     public static List<ChatRoom> retrieveChatRooms() {
