@@ -102,7 +102,7 @@ public class Firebase {
                 mInstance.getProfile().setId(mFBAuth.getCurrentUser().getUid());
                 // newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
 
-                Log.d("Login: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                Log.d("Lo: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
                         +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
                         + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
             }
@@ -196,5 +196,9 @@ public class Firebase {
 
             }
         });
+    }
+
+    public static void sendPlainMessage(String roomId, Message msg) {
+        ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(msg);
     }
 }

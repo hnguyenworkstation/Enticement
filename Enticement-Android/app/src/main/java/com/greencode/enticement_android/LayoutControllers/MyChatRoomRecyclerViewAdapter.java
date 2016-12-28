@@ -98,7 +98,7 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
         }
     }
 
-    public class ChatRoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ChatRoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView avatar;
         TextView name;
         TextView message;
@@ -137,7 +137,7 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
         }
 
         void remove() {
-            rootView.setVisibility(View.GONE);
+            rootView.destroyDrawingCache();
         }
 
         @Override

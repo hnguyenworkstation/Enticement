@@ -38,12 +38,17 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     private static final int RIGHT_MSG_IMG = 2;
     private static final int LEFT_MSG_IMG = 3;
 
+    private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
+    private static final String SENT = "Sent";
+    private static final String SEEN = "Seen";
+
     private final SimpleDateFormat MESSAGE_TIME_FORMAT = new SimpleDateFormat("M/dd, k:mm", Locale.US);
     private static OnClickChatScreenListener mListener;
     private Context mContext;
 
-    public MessagesAdapter(Context context) {
-        super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class, Firebase.ListMessagesRef);
+    public MessagesAdapter(Context context, String roomId) {
+        super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class,
+                Firebase.ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES));
         this.mContext = context;
     }
 
@@ -72,6 +77,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     @Override
     public int getItemViewType(int position) {
         Message model = getItem(position);
+        updateModel(model);
         if (model.getType() == Message.MessageType.MESSAGE_IN){
             return LEFT_MSG;
         } else if (model.getType() == Message.MessageType.MESSAGE_OUT) {
@@ -85,6 +91,7 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 
     @Override
     protected void populateViewHolder(MessageViewHolder viewHolder, Message model, int position) {
+        updateModel(model);
         if (model.getType() == Message.MessageType.STICKER_IN
                 || model.getType() == Message.MessageType.STICKER_OUT) {
             viewHolder.loadSticker(model.getMessage());
@@ -102,6 +109,24 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             viewHolder.updateTime(position, getItem(position).getTime(),
                     getItem(position).getType(), getItemViewType(position - 1));
             viewHolder.updateAvatarVisibility(position, getItemViewType(position - 1));
+        }
+
+        viewHolder.updateStatus(getItem(position));
+    }
+
+    private void updateModel(Message model) {
+        if (model.getType() == Message.MessageType.MESSAGE) {
+            if (model.getFromId().equals(Firebase.mFBAuth.getCurrentUser().getUid())) {
+                model.setType(Message.MessageType.MESSAGE_OUT);
+            } else {
+                model.setType(Message.MessageType.MESSAGE_IN);
+            }
+        } else if (model.getType() == Message.MessageType.STICKER) {
+            if (model.getFromId().equals(Firebase.mFBAuth.getCurrentUser().getUid())) {
+                model.setType(Message.MessageType.STICKER_OUT);
+            } else {
+                model.setType(Message.MessageType.STICKER_OUT);
+            }
         }
     }
 
@@ -127,6 +152,17 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             StickersManager.with(mContext)
                     .loadSticker(message)
                     .into(mSticker);
+        }
+
+        void updateStatus(Message msg) {
+            if (msg.getType() == Message.MessageType.MESSAGE_OUT
+                    || msg.getType() == Message.MessageType.STICKER_OUT) {
+                if (msg.getStatus() == Message.MessageStatus.CHECKED) {
+                    mStatus.setText(SEEN);
+                } else if (msg.getStatus() == Message.MessageStatus.SENT){
+                    mStatus.setText(SENT);
+                }
+            }
         }
 
         void setTime(long time) {

@@ -32,7 +32,6 @@
             android:text="Hung Nguyen"
             android:layout_marginStart="@dimen/text_margin"
             android:textSize="@dimen/chatroom_name_txtsize"
-            android:layout_marginTop="@dimen/margin_8"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <TextView

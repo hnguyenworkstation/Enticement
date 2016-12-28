@@ -71,7 +71,8 @@ public class ChatRoomActivity extends EnticementActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.cract_toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.chatroom_toolbar));
-        toolbar.setTitle(chatroomTitle);
+        toolbar.setTitle(chatroomID);
+
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         assert actionbar != null;
@@ -158,7 +159,7 @@ public class ChatRoomActivity extends EnticementActivity {
     }
 
     private void initMessagesRecycler() {
-        mAdapter = new MessagesAdapter(getBaseContext());
+        mAdapter = new MessagesAdapter(getBaseContext(), chatroomID);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
         mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -271,17 +272,17 @@ public class ChatRoomActivity extends EnticementActivity {
         }
         Message msg;
         if (StickersManager.isSticker(message)) {
-            msg = new Message(isFromMe ? Message.MessageType.STICKER_IN : Message.MessageType.STICKER_OUT, message, time);
+            msg = new Message(Firebase.mFBAuth.getCurrentUser().getUid(), Message.MessageType.STICKER, message, time);
             StickersManager.onUserMessageSent(true);
         } else {
-            msg = new Message(isFromMe ? Message.MessageType.MESSAGE_IN : Message.MessageType.MESSAGE_OUT, message, time);
+            msg = new Message(Firebase.mFBAuth.getCurrentUser().getUid(), Message.MessageType.MESSAGE, message, time);
             StickersManager.onUserMessageSent(false);
             if (!isFromMe) {
                 mInputMsg.setText("");
             }
         }
 
-        Firebase.ChatRoomRef.push().setValue(msg);
+        Firebase.sendPlainMessage(chatroomID, msg);
         updateList(!isFromMe);
     }
 
