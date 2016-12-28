@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.greencode.enticement_android.Activities.ChatRoomActivity;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.Interfaces.MessageClickListener;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.R;
@@ -39,12 +40,10 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
 
     private final SimpleDateFormat MESSAGE_TIME_FORMAT = new SimpleDateFormat("M/dd, k:mm", Locale.US);
     private static OnClickChatScreenListener mListener;
-
-
     private Context mContext;
 
-    public MessagesAdapter(DatabaseReference ref, Context context) {
-        super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class, ref);
+    public MessagesAdapter(Context context) {
+        super(Message.class, R.layout.message_from_me, MessagesAdapter.MessageViewHolder.class, Firebase.ListMessagesRef);
         this.mContext = context;
     }
 

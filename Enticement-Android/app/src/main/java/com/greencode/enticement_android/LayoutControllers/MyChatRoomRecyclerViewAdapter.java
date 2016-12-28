@@ -2,6 +2,7 @@ package com.greencode.enticement_android.LayoutControllers;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,39 +12,44 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Enticement.EnticementPreferenceManager;
 import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatRoom, MyChatRoomRecyclerViewAdapter.ViewHolder> {
-    private List<ChatRoom> listRooms = new ArrayList<>();
+public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatRoom, MyChatRoomRecyclerViewAdapter.ChatRoomViewHolder> {
     private Context mContext;
+    private final EnticementPreferenceManager mInstance = EnticementApplication.getInstance().getPrefManager();
 
     public MyChatRoomRecyclerViewAdapter(Context context) {
-        super(ChatRoom.class, R.layout.chatroom_item_row, MyChatRoomRecyclerViewAdapter.ViewHolder.class, Firebase.ChatRoomRef);
+        super(ChatRoom.class, R.layout.chatroom_item_row, MyChatRoomRecyclerViewAdapter.ChatRoomViewHolder.class, Firebase.ChatRoomRef);
         this.mContext = context;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChatRoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.chatroom_item_row, parent, false);
-        return new ViewHolder(view);
+        return new ChatRoomViewHolder(view);
     }
 
     @Override
-    public int getItemCount() {
-        return listRooms.size();
-    }
+    protected void populateViewHolder(ChatRoomViewHolder viewHolder, ChatRoom model, int position) {
+        String id = EnticementApplication.getInstance().getPrefManager().getProfile().getId();
 
-    @Override
-    protected void populateViewHolder(ViewHolder viewHolder, ChatRoom model, int position) {
-        viewHolder.setAvatar(model.getUser().getImageURL());
-        viewHolder.setName(model.getUser().getName());
-        viewHolder.setLastMsg(model.getLastMessage());
-        viewHolder.setUnreadcount(model.getUnreadCount());
+        Log.d("Main Activity: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
+
+        if (model.getUserID1().equals(id) || model.getUserID2().equals(id)) {
+            Firebase.getUserProfileToChatRoom(model);
+            viewHolder.setName("Hung");
+            viewHolder.setLastMsg(model.getLastMessage());
+            viewHolder.setUnreadcount(model.getUnreadCount());
+            viewHolder.setLastMsg(model.getLastMessage());
+        } else {
+            viewHolder.remove();
+        }
     }
 
     public interface ClickListener {
@@ -52,7 +58,6 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
     }
 
     public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-
         private GestureDetector gestureDetector;
         private MyChatRoomRecyclerViewAdapter.ClickListener clickListener;
 
@@ -93,15 +98,17 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
         }
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChatRoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView avatar;
         TextView name;
         TextView message;
         TextView timestamp;
         TextView unreadcount;
+        View rootView;
 
-        ViewHolder(View view) {
+        ChatRoomViewHolder(View view) {
             super(view);
+            rootView = view;
             avatar = (ImageView) view.findViewById(R.id.chatroom_avatar);
             name = (TextView) view.findViewById(R.id.chatroom_name);
             message = (TextView) view.findViewById(R.id.chatroom_lastmsg);
@@ -127,6 +134,10 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
             } else {
                 this.unreadcount.setText(String.valueOf(count));
             }
+        }
+
+        void remove() {
+            rootView.setVisibility(View.GONE);
         }
 
         @Override

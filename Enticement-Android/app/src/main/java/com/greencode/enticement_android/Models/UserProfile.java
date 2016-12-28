@@ -1,11 +1,13 @@
 package com.greencode.enticement_android.Models;
 
+import java.io.Serializable;
+
 /**
- * Created by Hung Nguyen on 12/1/2016.
+ * Created by Hung Nguyen on 12/27/2016.
  */
 
-public class MyProfile {
-    String id;
+public class UserProfile implements Serializable {
+    String id = null;
     String email;
     String name;
     String nickname;
@@ -13,18 +15,22 @@ public class MyProfile {
     String created_at;
     String profile_url;
 
-    public MyProfile() {
+    public UserProfile() {
 
     }
 
-    public MyProfile(String id, String name, String nickname, String created_at, String birthday,
-                     String profile_url) {
+    public UserProfile(String id, String name, String imageURL) {
         this.id = id;
         this.name = name;
-        this.nickname = nickname;
-        this.created_at = created_at;
-        this.birthday = birthday;
-        this.profile_url = profile_url;
+        this.profile_url = imageURL;
+    }
+
+    public String getImageURL() {
+        return profile_url;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.profile_url = imageURL;
     }
 
     public String getName() {
@@ -82,4 +88,5 @@ public class MyProfile {
     public void setProfile_url(String profile_url) {
         this.profile_url = profile_url;
     }
+
 }

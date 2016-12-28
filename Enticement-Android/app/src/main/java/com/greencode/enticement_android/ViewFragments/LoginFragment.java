@@ -45,6 +45,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.greencode.enticement_android.Activities.MainActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.Helpers.Firebase;
@@ -92,7 +93,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener,
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            //your code here
+            //Todo: updating real location
         }
     };
 
@@ -300,10 +301,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener,
                             AppUtils.showToast("Fetching user data failed!", getContext(), Toast.LENGTH_LONG);
                         }
 
-                        MyProfile myProfile = EnticementApplication.getInstance().getPrefManager().getProfile();
-                        AppUtils.showToast("Name: " + myProfile.getName()
-                                        +  "Nickname:" + myProfile.getNickname()
-                                , getContext(), Toast.LENGTH_LONG);
+                        getActivity().finish();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.fade_out_to_left, R.anim.fade_in_from_right);
                     }
 
                     showProgress(false);

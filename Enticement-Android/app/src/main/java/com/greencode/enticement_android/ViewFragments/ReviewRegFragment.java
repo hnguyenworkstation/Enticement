@@ -81,14 +81,6 @@ public class ReviewRegFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_review_reg, container, false);
 
         mNameEtxt = (EditText) view.findViewById(R.id.review_name);
-        mImageView = (ImageView) view.findViewById(R.id.review_profileimg);
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         mNicknameEtxt = (EditText) view.findViewById(R.id.review_nickname);
         mBirthdayEtxt = (EditText) view.findViewById(R.id.review_birthday);
         mFinishBtn = (FlatButton) view.findViewById(R.id.review_finish);
@@ -132,7 +124,10 @@ public class ReviewRegFragment extends Fragment {
                         Firebase.setNewUserProfile(EnticementApplication.getInstance()
                                 .getPrefManager()
                                 .getProfile());
+
+                        Firebase.getNewUserProfile();
                         getActivity().finish();
+
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

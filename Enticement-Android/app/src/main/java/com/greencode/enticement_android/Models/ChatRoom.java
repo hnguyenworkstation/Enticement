@@ -11,7 +11,7 @@ public class ChatRoom implements Serializable {
     private String name;
     private String lastMessage;
     private String timestamp;
-    private Users.User user;
+    private UserProfile user;
     private int unreadCount;
 
     private String userID1;
@@ -19,7 +19,7 @@ public class ChatRoom implements Serializable {
 
     public ChatRoom() {}
 
-    public ChatRoom(String id, String name, String lastMessage, String timestamp, Users.User user) {
+    public ChatRoom(String id, String name, String lastMessage, String timestamp, UserProfile user) {
         this.id = id;
         this.name = name;
         this.lastMessage = lastMessage;
@@ -72,11 +72,11 @@ public class ChatRoom implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Users.User getUser() {
+    public UserProfile getUser() {
         return user;
     }
 
-    public void setUser(Users.User user) {
+    public void setUser(UserProfile user) {
         this.user = user;
     }
 

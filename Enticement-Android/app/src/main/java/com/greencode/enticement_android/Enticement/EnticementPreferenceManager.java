@@ -37,11 +37,16 @@ public class EnticementPreferenceManager {
     private static final String KEY_USER_EMAIL = "user_email";
     private static final String KEY_NOTIFICATIONS = "notifications";
 
-    public EnticementPreferenceManager(Context context) {
+    EnticementPreferenceManager(Context context) {
         this.mContext = context;
         mPref = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         mPrefEditor = mPref.edit();
         mProfile = new MyProfile();
+    }
+
+    public void clear() {
+        mPrefEditor.clear();
+        mPrefEditor.commit();
     }
 
     public Location getVisitLocation() {

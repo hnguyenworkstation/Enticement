@@ -79,11 +79,13 @@ public class ListChatroomFragment extends Fragment {
                 new MyChatRoomRecyclerViewAdapter.ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        ChatRoom chatRoom = mAdapter.getItem(position);
-                        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-                        intent.putExtra("chat_room_id", chatRoom.getId());
-                        intent.putExtra("name", chatRoom.getName());
-                        startActivity(intent);
+                        if (view.getVisibility() != View.GONE) {
+                            ChatRoom chatRoom = mAdapter.getItem(position);
+                            Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                            intent.putExtra("chat_room_id", chatRoom.getId());
+                            intent.putExtra("name", chatRoom.getName());
+                            startActivity(intent);
+                        }
                     }
 
                     @Override
@@ -151,7 +153,7 @@ public class ListChatroomFragment extends Fragment {
             case R.id.menuchatroom_add:
                 try {
                     AppUtils.showToast("Add Clicked", getContext());
-                    Firebase.createChatroom("12334232423");
+                    Firebase.createChatroom("jtaV1kxluuWi7caq0nUVIJdNJ2M2");
                 } catch (Exception e) {
 
                 }

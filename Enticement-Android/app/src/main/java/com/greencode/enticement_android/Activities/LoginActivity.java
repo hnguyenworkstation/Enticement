@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.GetBirthdayFragment;
@@ -49,14 +50,13 @@ public class LoginActivity extends EnticementActivity
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
 
-        if (EnticementApplication.getInstance().getPrefManager().getProfile() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        if (Firebase.mFBAuth.getCurrentUser() != null) {
             this.finish();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
         }
 
         overridePendingTransition(R.anim.fix_anim, R.anim.fix_anim);
         setContentView(R.layout.activity_login);
-
 
         loginFragment = new LoginFragment();
         mFragManager = getSupportFragmentManager();

@@ -158,7 +158,7 @@ public class ChatRoomActivity extends EnticementActivity {
     }
 
     private void initMessagesRecycler() {
-        mAdapter = new MessagesAdapter(Firebase.ChatRoomRef, getBaseContext());
+        mAdapter = new MessagesAdapter(getBaseContext());
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
         mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {

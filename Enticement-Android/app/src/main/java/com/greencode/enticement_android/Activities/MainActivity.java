@@ -18,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.AppUtils;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
@@ -99,6 +101,13 @@ public class MainActivity extends EnticementActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // get user profile again
+        Firebase.getNewUserProfile();
+
+        Log.d("Main Activity: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
 
         rootLayout = findViewById(R.id.mainact_root_layout);
         if (savedInstanceState == null) {

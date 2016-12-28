@@ -3,6 +3,7 @@ package com.greencode.enticement_android.Helpers;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,9 +18,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Enticement.EnticementPreferenceManager;
 import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.Models.MyProfile;
+import com.greencode.enticement_android.Models.UserProfile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,16 +30,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import vc908.stickerfactory.User;
+
 /**
  * Created by Hung Nguyen on 11/28/2016.
  */
 
 public class Firebase {
-    public static final FirebaseAuth mFBAuth = FirebaseAuth.getInstance();
-    public static final DatabaseReference ChatRoomRef = FirebaseDatabase.getInstance().getReference().child("Chatroom");
-    private static final DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
-    private static final StorageReference UserProfileStorage = FirebaseStorage.getInstance().getReference().child("User_Profile");
-
     /*USER FIELDS*/
     private static final String USER_ID = "user_id";
     private static final String USER_EMAIL = "user_email";
@@ -51,6 +51,14 @@ public class Firebase {
     private static final String CHATROOM_USER1 = "chatroom_user1";
     private static final String CHATROOM_USER2 = "chatroom_user2";
     private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
+
+    /*FINAL STATIC FIELDS OF FIREBASE SERVER*/
+    public static final FirebaseAuth mFBAuth = FirebaseAuth.getInstance();
+    public static final DatabaseReference ChatRoomRef = FirebaseDatabase.getInstance().getReference().child("Chatroom");
+    public static final DatabaseReference ListMessagesRef = ChatRoomRef.child(CHATROOM_LIST_MESSAGES);
+    public static final DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
+    public static final StorageReference UserProfileStorage = FirebaseStorage.getInstance().getReference().child("User_Profile");
+    public static final EnticementPreferenceManager mInstance = EnticementApplication.getInstance().getPrefManager();
 
     public static void setNewUserProfile(MyProfile myProfile) {
         Map<String, Object> mapUser = new HashMap<>();
@@ -72,13 +80,9 @@ public class Firebase {
     }
 
     public static void getNewUserProfile() {
-        String id = mFBAuth.getCurrentUser().getUid();
-
-        UserRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        UserRef.child(mFBAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                MyProfile newProfile = new MyProfile();
-
                 /*
                 * DATA SNAPSHOT in the firebase server is stored as:
                 * - user birthday
@@ -89,16 +93,18 @@ public class Firebase {
                 * - user nickname
                 * */
 
-                newProfile.setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
-                newProfile.setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
-                newProfile.setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
-                newProfile.setId(dataSnapshot.child(USER_ID).getValue().toString());
-                newProfile.setName(dataSnapshot.child(USER_NAME).getValue().toString());
-                newProfile.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+                mInstance.getProfile().setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
+                mInstance.getProfile().setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
+                mInstance.getProfile().setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
+                mInstance.getProfile().setId(dataSnapshot.child(USER_ID).getValue().toString());
+                mInstance.getProfile().setName(dataSnapshot.child(USER_NAME).getValue().toString());
+                mInstance.getProfile().setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+                mInstance.getProfile().setId(mFBAuth.getCurrentUser().getUid());
                 // newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
 
-                // update new profile to the application to get right preferences
-                EnticementApplication.getInstance().getPrefManager().setProfile(newProfile);
+                Log.d("Login: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                        +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                        + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
             }
 
             @Override
@@ -137,7 +143,7 @@ public class Firebase {
 //        mapChatroom.put(CHATROOM_USER2, withID);
 //        mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
 
-        ChatRoom newChatroom = new ChatRoom(tempID, id, withID, null, String.valueOf(System.currentTimeMillis()));
+        ChatRoom newChatroom = new ChatRoom(tempID, id, withID, "Hello", String.valueOf(System.currentTimeMillis()));
         ChatRoomRef.child(tempID).setValue(newChatroom);
     }
 
@@ -151,5 +157,44 @@ public class Firebase {
 
 
         return list;
+    }
+
+    public static void getUserProfileToChatRoom(final ChatRoom room) {
+        String id = mFBAuth.getCurrentUser().getUid();
+        String chatToId;
+        if (room.getUserID1() == id) {
+            chatToId = room.getUserID2();
+        } else {
+            chatToId = room.getUserID1();
+        }
+
+        UserRef.child(chatToId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserProfile newProfile = new UserProfile();
+                /*
+                * DATA SNAPSHOT in the firebase server is stored as:
+                * - user birthday
+                * - user created date
+                * - user email
+                * - user id
+                * - user name
+                * - user nickname
+                * */
+                newProfile.setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
+                newProfile.setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
+                newProfile.setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
+                newProfile.setId(dataSnapshot.child(USER_ID).getValue().toString());
+                newProfile.setName(dataSnapshot.child(USER_NAME).getValue().toString());
+                newProfile.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+
+                room.setUser(newProfile);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
