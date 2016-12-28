@@ -93,7 +93,7 @@ public class FeaturedFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.list_chatroom_menu, menu);
+        inflater.inflate(R.menu.featured_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -101,10 +101,7 @@ public class FeaturedFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.menuchatroom_search:
-                AppUtils.showToast("Search Clicked", getContext());
-                return true;
-            case R.id.menuchatroom_add:
+            case R.id.featuredmenu_topic:
                 try {
                     AppUtils.showToast("Add Clicked", getContext());
                     startActivity(new Intent(getActivity(), TopicActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

@@ -55,6 +55,8 @@ public class ChatRoomActivity extends EnticementActivity {
     private ImageView buttonSend;
     private LinearLayoutManager mLinearLayoutManager;
     private int mPreviousPositionItemClick = -1;
+    private String chatroomID;
+    private String chatroomTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +64,14 @@ public class ChatRoomActivity extends EnticementActivity {
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         setContentView(R.layout.activity_chat_room);
 
+        Intent intent = getIntent();
+        chatroomID = intent.getStringExtra("chat_room_id");
+        chatroomTitle = intent.getStringExtra("name");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.cract_toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.chatroom_toolbar));
+        toolbar.setTitle(chatroomTitle);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         assert actionbar != null;
@@ -109,7 +116,6 @@ public class ChatRoomActivity extends EnticementActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.cract_stickercontainer, stickersFragment).commit();
         }
         stickersFragment.setOnStickerSelectedListener(stickerSelectedListener);
-
 
         BadgedStickersButton stickerButton = ((BadgedStickersButton) findViewById(R.id.cract_stickerbtn));
         View stickersFrame = findViewById(R.id.cract_stickercontainer);

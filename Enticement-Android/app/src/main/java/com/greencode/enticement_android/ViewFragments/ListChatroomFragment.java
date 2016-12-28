@@ -10,14 +10,21 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Activities.ChatRoomActivity;
+import com.greencode.enticement_android.Activities.TopicActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
+import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.LayoutControllers.MyChatRoomRecyclerViewAdapter;
+import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.R;
 
@@ -65,26 +72,26 @@ public class ListChatroomFragment extends Fragment {
             mRecycler.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
 
-        mAdapter = new MyChatRoomRecyclerViewAdapter(getContext());
+        mAdapter = new MyChatRoomRecyclerViewAdapter(context);
         mRecycler.setAdapter(mAdapter);
+        mRecycler.addOnItemTouchListener(new MyChatRoomRecyclerViewAdapter.RecyclerTouchListener(context,
+                mRecycler,
+                new MyChatRoomRecyclerViewAdapter.ClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        ChatRoom chatRoom = mAdapter.getItem(position);
+                        Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                        intent.putExtra("chat_room_id", chatRoom.getId());
+                        intent.putExtra("name", chatRoom.getName());
+                        startActivity(intent);
+                    }
 
-        mRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                startActivity(new Intent(getActivity(), ChatRoomActivity.class));
-                return true;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-                startActivity(new Intent(getActivity(), ChatRoomActivity.class));
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
+                    @Override
+                    public void onLongClick(View view, int position) {
+                        Toast.makeText(getContext(), "Long Clicked at" + position, Toast.LENGTH_SHORT).show();
+                    }
+                })
+        );
 
         mSwipeRefLayout = (SwipeRefreshLayout) view.findViewById(R.id.chatroom_swiperef);
         mSwipeRefLayout.setColorSchemeResources(R.color.orange1, R.color.green1, R.color.blue1);
@@ -125,5 +132,32 @@ public class ListChatroomFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(DummyContent.DummyItem item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.list_chatroom_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menuchatroom_search:
+                AppUtils.showToast("Search Clicked", getContext());
+                return true;
+            case R.id.menuchatroom_add:
+                try {
+                    AppUtils.showToast("Add Clicked", getContext());
+                    Firebase.createChatroom("12334232423");
+                } catch (Exception e) {
+
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

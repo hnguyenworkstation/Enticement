@@ -129,13 +129,16 @@ public class Firebase {
 
     public static void createChatroom(String withID) {
         Map<String, Object> mapChatroom = new HashMap<>();
-        String id = mFBAuth.getCurrentUser().getUid();
-        mapChatroom.put(CHATROOM_CREATEDAT, String.valueOf(System.currentTimeMillis()));
-        mapChatroom.put(CHATROOM_USER1, id);
-        mapChatroom.put(CHATROOM_USER2, withID);
-        mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
 
-        ChatRoomRef.push().setValue(mapChatroom);
+        String id = mFBAuth.getCurrentUser().getUid();
+        String tempID = ChatRoomRef.push().getKey();
+//        mapChatroom.put(CHATROOM_CREATEDAT, String.valueOf(System.currentTimeMillis()));
+//        mapChatroom.put(CHATROOM_USER1, id);
+//        mapChatroom.put(CHATROOM_USER2, withID);
+//        mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
+
+        ChatRoom newChatroom = new ChatRoom(tempID, id, withID, null, String.valueOf(System.currentTimeMillis()));
+        ChatRoomRef.child(tempID).setValue(newChatroom);
     }
 
     public static void pushPlainMessage(String roomId, Message message) {

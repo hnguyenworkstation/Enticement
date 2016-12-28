@@ -57,16 +57,35 @@
         android:layout_gravity="end"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/chatroom.time"
-            android:text="Today"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginTop="@dimen/margin_8"
-            android:textSize="@dimen/chatroom_message_txtsize"
-            android:textAppearance="?attr/textAppearanceListItem"/>
-    </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chatroom.time"
+                android:text="Today"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textSize="@dimen/chatroom_message_txtsize"
+                android:textAppearance="?attr/textAppearanceListItem"/>
+
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/chatroom.count"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/chatroom.time"
+                android:layout_alignParentEnd="true"
+                android:text="5"
+                android:background="@drawable/circle_notification"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

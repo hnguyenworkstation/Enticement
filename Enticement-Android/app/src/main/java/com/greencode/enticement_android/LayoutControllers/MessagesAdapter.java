@@ -107,7 +107,6 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         TextView mTimeStamp;
         TextView mContent;
         TextView mStatus;
