@@ -38,6 +38,7 @@ import com.greencode.enticement_android.Helpers.AppUtils;
 import com.greencode.enticement_android.Helpers.Firebase;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
+import com.greencode.enticement_android.Models.UserProfile;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
@@ -46,6 +47,10 @@ import com.greencode.enticement_android.ViewFragments.MoreFragment;
 import com.greencode.enticement_android.ViewFragments.AroundFragment;
 import com.greencode.enticement_android.ViewFragments.PeopleAroundFragment;
 import com.greencode.enticement_android.ViewFragments.UpdatesFragment;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends EnticementActivity
         implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener,
@@ -102,8 +107,8 @@ public class MainActivity extends EnticementActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // get user profile again
-        Firebase.getNewUserProfile();
+        // fetch data from server
+        receiveDataFromServer();
 
         Log.d("Main Activity: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
                 +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
@@ -173,6 +178,14 @@ public class MainActivity extends EnticementActivity
         if (mInstance.getPrefManager().getCurrentLocation() == null) {
             fetchLocation();
         }
+    }
+
+    private void receiveDataFromServer() {
+        // get user profile again
+        Firebase.getNewUserProfile();
+
+        // Gettting user list
+        Firebase.receiveUsersList();
     }
 
     @Nullable

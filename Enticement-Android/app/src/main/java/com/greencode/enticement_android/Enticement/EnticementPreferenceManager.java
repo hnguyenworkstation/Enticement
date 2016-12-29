@@ -11,6 +11,10 @@ import android.support.v4.app.ActivityCompat;
 
 import com.greencode.enticement_android.Manifest;
 import com.greencode.enticement_android.Models.MyProfile;
+import com.greencode.enticement_android.Models.UserProfile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hung Nguyen on 12/1/2016.

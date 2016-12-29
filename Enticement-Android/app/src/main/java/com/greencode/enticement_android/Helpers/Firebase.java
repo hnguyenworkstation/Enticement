@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +52,8 @@ public class Firebase {
     private static final String CHATROOM_USER1 = "chatroom_user1";
     private static final String CHATROOM_USER2 = "chatroom_user2";
     private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
+
+    private static ArrayList<UserProfile> userList = new ArrayList<>();
 
     /*FINAL STATIC FIELDS OF FIREBASE SERVER*/
     public static final FirebaseAuth mFBAuth = FirebaseAuth.getInstance();
@@ -159,36 +162,61 @@ public class Firebase {
         return list;
     }
 
-    public static void getUserProfileToChatRoom(final ChatRoom room) {
-        String id = mFBAuth.getCurrentUser().getUid();
+    public static void getUserProfileToChatRoom(ChatRoom room) {
         String chatToId;
-        if (room.getUserID1() == id) {
+        if (room.getUserID1().equals(mFBAuth.getCurrentUser().getUid())) {
             chatToId = room.getUserID2();
         } else {
             chatToId = room.getUserID1();
         }
 
-        UserRef.child(chatToId).addListenerForSingleValueEvent(new ValueEventListener() {
+        for(UserProfile user: userList) {
+            if (user.getId().equals(chatToId)) {
+                room.setUser(user);
+            }
+        }
+    }
+
+    public static void sendPlainMessage(String roomId, Message msg) {
+        ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(msg);
+    }
+
+    public static void receiveUsersList() {
+        UserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserProfile newProfile = new UserProfile();
-                /*
-                * DATA SNAPSHOT in the firebase server is stored as:
-                * - user birthday
-                * - user created date
-                * - user email
-                * - user id
-                * - user name
-                * - user nickname
-                * */
-                newProfile.setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
-                newProfile.setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
-                newProfile.setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
-                newProfile.setId(dataSnapshot.child(USER_ID).getValue().toString());
-                newProfile.setName(dataSnapshot.child(USER_NAME).getValue().toString());
-                newProfile.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    getUserFromSnapshot(snapshot);
+                }
+            }
 
-                room.setUser(newProfile);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        UserRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    getUserFromSnapshot(snapshot);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -198,7 +226,27 @@ public class Firebase {
         });
     }
 
-    public static void sendPlainMessage(String roomId, Message msg) {
-        ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(msg);
+    private static void getUserFromSnapshot(DataSnapshot snapshot) {
+        UserProfile user = new UserProfile();
+        /*
+        * DATA SNAPSHOT in the firebase server is stored as:
+        * - user birthday
+        * - user created date
+        * - user email
+        * - user id
+        * - user name
+        * - user nickname
+        * */
+        user.setBirthday(snapshot.child(USER_BIRTHDAY).getValue().toString());
+        user.setCreated_at(snapshot.child(USER_CREATEDAT).getValue().toString());
+        user.setEmail(snapshot.child(USER_EMAIL).getValue().toString());
+        user.setId(snapshot.child(USER_ID).getValue().toString());
+        user.setName(snapshot.child(USER_NAME).getValue().toString());
+        user.setNickname(snapshot.child(USER_NICKNAME).getValue().toString());
+        userList.add(user);
+    }
+
+    public static ArrayList<UserProfile> getUserList() {
+        return userList;
     }
 }
