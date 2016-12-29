@@ -52,6 +52,7 @@ public class Firebase {
     private static final String CHATROOM_USER1 = "chatroom_user1";
     private static final String CHATROOM_USER2 = "chatroom_user2";
     private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
+    private static final String CHATROOM_LAST_MESSAGE = "lastMessage";
 
     private static ArrayList<UserProfile> userList = new ArrayList<>();
 
@@ -244,6 +245,10 @@ public class Firebase {
         user.setName(snapshot.child(USER_NAME).getValue().toString());
         user.setNickname(snapshot.child(USER_NICKNAME).getValue().toString());
         userList.add(user);
+    }
+
+    public static void updateLastMessage(String roomId, String message) {
+        ChatRoomRef.child(roomId).child(CHATROOM_LAST_MESSAGE).setValue(message);
     }
 
     public static ArrayList<UserProfile> getUserList() {

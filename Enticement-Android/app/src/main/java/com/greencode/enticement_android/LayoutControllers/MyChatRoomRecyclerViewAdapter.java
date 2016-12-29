@@ -1,6 +1,7 @@
 package com.greencode.enticement_android.LayoutControllers;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -43,7 +44,7 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
 
         if (model.getUserID1().equals(id) || model.getUserID2().equals(id)) {
             Firebase.getUserProfileToChatRoom(model);
-            viewHolder.setName("Hung");
+            viewHolder.setName(model.getUser().getName());
             viewHolder.setLastMsg(model.getLastMessage());
             viewHolder.setUnreadcount(model.getUnreadCount());
             viewHolder.setLastMsg(model.getLastMessage());
@@ -133,6 +134,8 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
                 this.unreadcount.setVisibility(View.GONE);
             } else {
                 this.unreadcount.setText(String.valueOf(count));
+                this.name.setTypeface(Typeface.DEFAULT_BOLD);
+                this.message.setTypeface(Typeface.DEFAULT_BOLD);
             }
         }
 

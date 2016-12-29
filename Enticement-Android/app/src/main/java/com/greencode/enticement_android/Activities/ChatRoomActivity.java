@@ -283,6 +283,7 @@ public class ChatRoomActivity extends EnticementActivity {
         }
 
         Firebase.sendPlainMessage(chatroomID, msg);
+        Firebase.updateLastMessage(chatroomID, message);
         updateList(!isFromMe);
     }
 
