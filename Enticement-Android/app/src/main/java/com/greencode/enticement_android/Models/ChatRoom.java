@@ -10,6 +10,7 @@ public class ChatRoom implements Serializable {
     private String id;
     private String name;
     private String lastMessage;
+    private String lastMessageFrom;
     private String timestamp;
     private UserProfile user;
     private int unreadCount;
@@ -19,21 +20,31 @@ public class ChatRoom implements Serializable {
 
     public ChatRoom() {}
 
-    public ChatRoom(String id, String name, String lastMessage, String timestamp, UserProfile user) {
+    public ChatRoom(String id, String name, String lastMessage, String lastMessageFrom, String timestamp, UserProfile user) {
         this.id = id;
         this.name = name;
         this.lastMessage = lastMessage;
         this.timestamp = timestamp;
         this.user = user;
+        this.lastMessageFrom = lastMessageFrom;
     }
 
     /*This constrcutor is used to create new chatroom*/
-    public ChatRoom(String id, String userID1, String userID2, String lastMessage, String timestamp) {
+    public ChatRoom(String id, String userID1, String userID2, String lastMessage, String lastMessageFrom, String timestamp) {
         this.id = id;
         this.userID1 = userID1;
         this.userID2 = userID2;
         this.lastMessage = lastMessage;
+        this.lastMessageFrom = lastMessageFrom;
         this.timestamp = timestamp;
+    }
+
+    public String getLastMessageFrom() {
+        return lastMessageFrom;
+    }
+
+    public void setLastMessageFrom(String lastMessageFrom) {
+        this.lastMessageFrom = lastMessageFrom;
     }
 
     public ChatRoom(String id) {

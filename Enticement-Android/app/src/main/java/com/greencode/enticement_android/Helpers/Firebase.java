@@ -53,6 +53,7 @@ public class Firebase {
     private static final String CHATROOM_USER2 = "chatroom_user2";
     private static final String CHATROOM_LIST_MESSAGES = "chatroom_list_messages";
     private static final String CHATROOM_LAST_MESSAGE = "lastMessage";
+    private static final String CHATROOM_LAST_MESSAGE_FROM = "lastMessageFrom";
 
     private static ArrayList<UserProfile> userList = new ArrayList<>();
 
@@ -147,12 +148,8 @@ public class Firebase {
 //        mapChatroom.put(CHATROOM_USER2, withID);
 //        mapChatroom.put(CHATROOM_LIST_MESSAGES, null);
 
-        ChatRoom newChatroom = new ChatRoom(tempID, id, withID, "Hello", String.valueOf(System.currentTimeMillis()));
+        ChatRoom newChatroom = new ChatRoom(tempID, id, withID, "", "", String.valueOf(System.currentTimeMillis()));
         ChatRoomRef.child(tempID).setValue(newChatroom);
-    }
-
-    public static void pushPlainMessage(String roomId, Message message) {
-        ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(message);
     }
 
     public static List<ChatRoom> retrieveChatRooms() {
@@ -180,6 +177,9 @@ public class Firebase {
 
     public static void sendPlainMessage(String roomId, Message msg) {
         ChatRoomRef.child(roomId).child(CHATROOM_LIST_MESSAGES).push().setValue(msg);
+
+        // send message then update the room
+        updateLastMessage(roomId, msg);
     }
 
     public static void receiveUsersList() {
@@ -247,8 +247,9 @@ public class Firebase {
         userList.add(user);
     }
 
-    public static void updateLastMessage(String roomId, String message) {
-        ChatRoomRef.child(roomId).child(CHATROOM_LAST_MESSAGE).setValue(message);
+    private static void updateLastMessage(String roomId, Message message) {
+        ChatRoomRef.child(roomId).child(CHATROOM_LAST_MESSAGE).setValue(message.getMessage());
+        ChatRoomRef.child(roomId).child(CHATROOM_LAST_MESSAGE_FROM).setValue(message.getFromId());
     }
 
     public static ArrayList<UserProfile> getUserList() {

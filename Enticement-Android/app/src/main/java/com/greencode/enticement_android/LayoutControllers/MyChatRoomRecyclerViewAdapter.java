@@ -21,7 +21,7 @@ import com.greencode.enticement_android.R;
 
 public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatRoom, MyChatRoomRecyclerViewAdapter.ChatRoomViewHolder> {
     private Context mContext;
-    private final EnticementPreferenceManager mInstance = EnticementApplication.getInstance().getPrefManager();
+    private final EnticementApplication mInstance = EnticementApplication.getInstance();
 
     public MyChatRoomRecyclerViewAdapter(Context context) {
         super(ChatRoom.class, R.layout.chatroom_item_row, MyChatRoomRecyclerViewAdapter.ChatRoomViewHolder.class, Firebase.ChatRoomRef);
@@ -36,16 +36,19 @@ public class MyChatRoomRecyclerViewAdapter extends FirebaseRecyclerAdapter<ChatR
 
     @Override
     protected void populateViewHolder(ChatRoomViewHolder viewHolder, ChatRoom model, int position) {
-        String id = EnticementApplication.getInstance().getPrefManager().getProfile().getId();
-
-        Log.d("Main Activity: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
-                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
-                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
+        String id = mInstance.getPrefManager().getProfile().getId();
 
         if (model.getUserID1().equals(id) || model.getUserID2().equals(id)) {
             Firebase.getUserProfileToChatRoom(model);
             viewHolder.setName(model.getUser().getName());
-            viewHolder.setLastMsg(model.getLastMessage());
+            String msg;
+            if (model.getLastMessageFrom().equals(id)) {
+                msg = "You: " + model.getLastMessage();
+                viewHolder.setLastMsg(msg);
+            } else {
+                msg = model.getName() + ": " + model.getLastMessage();
+                viewHolder.setLastMsg(msg);
+            }
             viewHolder.setUnreadcount(model.getUnreadCount());
             viewHolder.setLastMsg(model.getLastMessage());
         } else {

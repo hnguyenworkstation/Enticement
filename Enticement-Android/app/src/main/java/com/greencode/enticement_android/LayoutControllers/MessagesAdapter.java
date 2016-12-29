@@ -209,6 +209,8 @@ public class MessagesAdapter extends FirebaseRecyclerAdapter<Message,MessagesAda
             if (position != getItemCount() - 1) {
                 Message.MessageType prevItemType = Message.MessageType.values()[preViewType];
                 switch (prevItemType) {
+                    case STICKER:
+                    case MESSAGE:
                     case STICKER_OUT:
                     case MESSAGE_OUT:
                         if (currentItemType == Message.MessageType.MESSAGE_OUT

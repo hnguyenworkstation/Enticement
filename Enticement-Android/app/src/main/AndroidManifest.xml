@@ -23,6 +23,7 @@
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,7 +48,7 @@
         <provider
             android:name="vc908.stickerfactory.provider.StickersProvider"
             android:authorities="com.greencode.enticement_android.stickersProvider"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".Activities.MapsActivity"
@@ -56,14 +57,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greencode.enticement_android.Activities.MainActivity" />
         </activity>
-
-        <activity android:name=".Activities.ChatRoomActivity"
-            android:parentActivityName=".Activities.MainActivity"
-            >
+        <activity
+            android:name=".Activities.ChatRoomActivity"
+            android:parentActivityName=".Activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greencode.enticement_android.Activities.MainActivity" />
         </activity>
+        <activity android:name=".Activities.PostFeedActivity"></activity>
     </application>
 
 </manifest>
