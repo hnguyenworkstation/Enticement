@@ -82,4 +82,9 @@
     <string name="chatroom_stickerapi">024340accc66bf40e38f30c1369ac480</string>
     <string name="chatroom_inputhint">Write a message...</string>
     <string name="chatroom.istyping">is typing...</string>
+
+    <!-- Post Feed Activity -->
+    <string name="postfeed_hint">What do want to share?</string>
+
+
 </resources>

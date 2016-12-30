@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/activity_post_feed"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:ignore="MergeRootFrame"
     tools:context="com.greencode.enticement_android.Activities.PostFeedActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postfeed.appbarlayout"
+        android:layout_alignParentTop="true">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/postfeed.toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postfeed.appbarlayout"
+        android:id="@+id/postfeed.userheader">
+        <include layout="@layout/user_header_postact" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postfeed.topiclist"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_below="@+id/postfeed.userheader">
+
+        <com.cengalabs.flatui.views.FlatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#Hiking #Learning #Photography"
+            android:textColor="@color/blue_accent500"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postfeed.inputcontent"
+        android:hint="@string/postfeed_hint"
+        android:layout_below="@+id/postfeed.topiclist"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@null"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_8"
+        android:textSize="@dimen/postfeed_textsize"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postfeed.inputholder"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:background="@drawable/chatroom_input">
+
+        <ImageButton
+            android:id="@+id/postfeed.emobtn"
+            android:layout_width="@dimen/chat_input"
+            android:layout_height="@dimen/chat_input"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_btn"
+            android:src="@drawable/ic_smiley" />
+    </LinearLayout>
 </RelativeLayout>

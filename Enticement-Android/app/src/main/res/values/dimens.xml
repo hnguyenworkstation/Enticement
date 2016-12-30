@@ -72,4 +72,8 @@
     <dimen name="profile_elevation">8dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <!-- Post Feed Activity -->
+    <dimen name="postfeed_textsize">20sp</dimen>
+    <dimen name="postfeed_profile_size">80dp</dimen>
+
 </resources>

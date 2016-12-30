@@ -270,6 +270,9 @@ public class MainActivity extends EnticementActivity
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 }
                 break;
+            case R.id.fab_1:
+                startActivity(new Intent(this, PostFeedActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                break;
             default:
                 break;
         }
