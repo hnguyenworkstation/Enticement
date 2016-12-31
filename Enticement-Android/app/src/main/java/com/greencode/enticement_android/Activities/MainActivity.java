@@ -271,7 +271,18 @@ public class MainActivity extends EnticementActivity
                 }
                 break;
             case R.id.fab_1:
+                hideFab();
+                isTransforming = false;
                 startActivity(new Intent(this, PostFeedActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                overridePendingTransition(R.anim.slide_bottom_up, R.anim.fix_anim);
+                break;
+            case R.id.fab_2:
+                hideFab();
+                isTransforming = false;
+                break;
+            case R.id.fab_3:
+                hideFab();
+                isTransforming = false;
                 break;
             default:
                 break;

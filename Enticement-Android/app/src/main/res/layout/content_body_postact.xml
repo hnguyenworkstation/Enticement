@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    tools:context=".Activities.PostFeedActivity"
+    tools:showIn="@layout/activity_post_feed">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/postfeed.inputcontent"
+        android:hint="@string/postfeed_hint"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@null"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginStart="@dimen/margin_8"
+        android:textSize="@dimen/postfeed_textsize"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:id="@+id/postfeed.imagelist"
+        android:layout_below="@+id/postfeed.inputcontent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/margin_4">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/postfeed.image1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/postfeed_image_height"
+                android:background="@drawable/add_image_button"
+                android:gravity="center"
+                android:padding="15dip"/>
+            <ImageView
+                android:id="@+id/postfeed.image2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/postfeed_image_height"
+                android:background="@drawable/add_image_button"
+                android:gravity="center"
+                android:padding="15dip"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/postfeed.image3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/postfeed_image_height"
+                android:layout_weight="1"
+                android:background="@drawable/add_image_button"
+                android:gravity="center"
+                android:padding="15dip"/>
+            <ImageView
+                android:id="@+id/postfeed.image4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/postfeed_image_height"
+                android:background="@drawable/add_image_button"
+                android:gravity="center"
+                android:padding="15dip"/>
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>

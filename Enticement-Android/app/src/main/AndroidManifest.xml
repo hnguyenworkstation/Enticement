@@ -70,7 +70,12 @@
             android:name=".Activities.PostFeedActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|adjustResize"/>
+            android:windowSoftInputMode="adjustResize"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greencode.enticement_android.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
