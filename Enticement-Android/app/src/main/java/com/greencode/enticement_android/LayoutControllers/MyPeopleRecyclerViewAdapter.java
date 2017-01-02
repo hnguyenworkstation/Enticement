@@ -1,64 +1,54 @@
 package com.greencode.enticement_android.LayoutControllers;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
+import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.Models.DummyContent;
+import com.greencode.enticement_android.Models.UserProfile;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.ViewFragments.PeopleAroundFragment.OnListFragmentInteractionListener;
 
 import java.util.List;
 
-public class MyPeopleRecyclerViewAdapter extends RecyclerView.Adapter<MyPeopleRecyclerViewAdapter.ViewHolder> {
+public class MyPeopleRecyclerViewAdapter extends FirebaseRecyclerAdapter<UserProfile, MyPeopleRecyclerViewAdapter.UserViewHolder> {
 
-    private final List<DummyContent.DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private Context mContext;
+    private final EnticementApplication mInstance = EnticementApplication.getInstance();
 
-    public MyPeopleRecyclerViewAdapter(List<DummyContent.DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public MyPeopleRecyclerViewAdapter(Context context, OnListFragmentInteractionListener listener) {
+        super(UserProfile.class, R.layout.user_item_row, MyPeopleRecyclerViewAdapter.UserViewHolder.class, Firebase.UserRef);
+        this.mContext = context;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.people_around_row, parent, false);
-        return new ViewHolder(view);
+        return new UserViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    protected void populateViewHolder(UserViewHolder viewHolder, UserProfile model, int position) {
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
-    @Override
-    public int getItemCount() {
-        return mValues.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class UserViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
         public DummyContent.DummyItem mItem;
 
-        public ViewHolder(View view) {
+        public UserViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);

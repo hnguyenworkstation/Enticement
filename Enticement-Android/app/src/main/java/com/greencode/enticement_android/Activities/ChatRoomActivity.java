@@ -71,7 +71,7 @@ public class ChatRoomActivity extends EnticementActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.cract_toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.chatroom_toolbar));
-        toolbar.setTitle(chatroomID);
+        toolbar.setTitle(chatroomTitle);
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -123,6 +123,7 @@ public class ChatRoomActivity extends EnticementActivity {
         View chatContentGroup = findViewById(R.id.cract_contentlayout);
         RecyclerView suggestsList = (RecyclerView) findViewById(R.id.cract_suggestion);
         StickersKeyboardLayout stickersLayout = (StickersKeyboardLayout) findViewById(R.id.cract_layout);
+
         mStickerKeyboardController = new StickersKeyboardController.Builder(this)
                 .setStickersKeyboardLayout(stickersLayout)
                 .setStickersFragment(stickersFragment)
@@ -147,6 +148,13 @@ public class ChatRoomActivity extends EnticementActivity {
         });
 
         processIntent(getIntent());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // close this activity as oppose to navigating up
+        overridePendingTransition(R.anim.fix_anim, R.anim.fade_out_to_right);
+        return false;
     }
 
     private void transformSendBtn(EditText currentInput) {
@@ -257,9 +265,6 @@ public class ChatRoomActivity extends EnticementActivity {
                 return true;
             case R.id.crmenu_more:
                 Toast.makeText(this, "More", Toast.LENGTH_SHORT).show();
-                return true;
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

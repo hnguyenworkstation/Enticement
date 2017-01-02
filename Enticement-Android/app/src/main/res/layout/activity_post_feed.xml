@@ -47,6 +47,7 @@
         <com.cengalabs.flatui.views.FlatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/postfeed.topiclistview"
             android:maxLines="1"
             android:text="#Hiking #Learning #Photography"
             android:textColor="@color/blue_accent500"/>

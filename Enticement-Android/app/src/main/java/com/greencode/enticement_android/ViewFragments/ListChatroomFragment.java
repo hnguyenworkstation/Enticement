@@ -81,10 +81,11 @@ public class ListChatroomFragment extends Fragment {
                     public void onClick(View view, int position) {
                         if (view.getVisibility() != View.GONE) {
                             ChatRoom chatRoom = mAdapter.getItem(position);
-                            Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+                            Intent intent = new Intent(getActivity(), ChatRoomActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("chat_room_id", chatRoom.getId());
                             intent.putExtra("name", chatRoom.getName());
                             startActivity(intent);
+                            getActivity().overridePendingTransition(R.anim.fade_in_from_right, R.anim.fix_anim);
                         }
                     }
 

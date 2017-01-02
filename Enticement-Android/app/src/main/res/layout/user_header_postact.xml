@@ -13,19 +13,20 @@
         android:layout_width="@dimen/postfeed_profile_size"
         android:layout_height="@dimen/postfeed_profile_size"
         android:layout_marginTop="@dimen/margin_8"
-        android:id="@+id/postact.userimg"
+        android:id="@+id/postfeed.userimg"
         android:src="@drawable/logo_image"
         android:layout_marginStart="@dimen/margin_8"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/postact.userimg"
+        android:layout_toEndOf="@id/postfeed.userimg"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/postfeed.username"
             android:text="Hung Nguyen"
             android:textSize="@dimen/text_24"
             android:textStyle="bold"
@@ -42,6 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/postfeed.locationname"
                 android:text="Lowell"
                 android:gravity="center"
                 android:background="@drawable/inactive_button"
@@ -50,6 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/postfeed.maintopicname"
                 android:text="Hiking"
                 android:gravity="center"
                 android:background="@drawable/inactive_button"

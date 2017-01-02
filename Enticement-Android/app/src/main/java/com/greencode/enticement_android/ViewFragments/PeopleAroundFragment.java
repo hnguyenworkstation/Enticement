@@ -60,7 +60,7 @@ public class PeopleAroundFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPeopleRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyPeopleRecyclerViewAdapter(getContext(), mListener));
         }
         return view;
     }
