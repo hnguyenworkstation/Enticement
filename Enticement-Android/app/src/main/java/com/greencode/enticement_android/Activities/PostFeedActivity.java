@@ -152,7 +152,7 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
                 .limitPickPhoto(9)
                 .singlePhoto(false)
                 .hintOfPick("GALLERY")
-                .filterMimeTypes(new String[]{"image/jpeg/mp4"})
+                .filterMimeTypes(new String[]{"image/jpeg"})
                 .build();
         GalleryActivity.openActivity(PostFeedActivity.this, GALLERY_REQUEST, galleryConfig);
     }
@@ -179,9 +179,9 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
             }
         } else if (requestCode == GALLERY_REQUEST) {
             //list of photos of seleced
-            photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+            photos = ((List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS));
             //list of videos of seleced
-            videos = (List<String>) data.getSerializableExtra(GalleryActivity.VIDEO);
+            videos = ((List<String>) data.getSerializableExtra(GalleryActivity.VIDEO));
 
             Log.d("Post Feed", "Photos Picked: " + photos.size() + "\nVideos Picked: " + videos.size());
         }

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.greencode.enticement_android.Activities.TopicActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
+import com.greencode.enticement_android.LayoutControllers.EventTabAdapter;
 import com.greencode.enticement_android.LayoutControllers.MyPostModelRecyclerViewAdapter;
 import com.greencode.enticement_android.R;
 import com.greencode.enticement_android.Models.DummyContent;

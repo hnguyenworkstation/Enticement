@@ -40,6 +40,7 @@ import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
 import com.greencode.enticement_android.Models.UserProfile;
 import com.greencode.enticement_android.R;
+import com.greencode.enticement_android.ViewFragments.EventContainerFragment;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
@@ -59,7 +60,8 @@ public class MainActivity extends EnticementActivity
             UpdatesFragment.OnListFragmentInteractionListener,
             MoreFragment.OnFragmentInteractionListener,
             PeopleAroundFragment.OnListFragmentInteractionListener,
-            GroupAroundFragment.OnListFragmentInteractionListener {
+            GroupAroundFragment.OnListFragmentInteractionListener,
+            EventContainerFragment.OnFragmentInteractionListener {
 
     private ViewPager mViewPager;
     private View rootLayout;
@@ -208,6 +210,18 @@ public class MainActivity extends EnticementActivity
         super.onRestart();
 
         Log.d("On Restart", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
+
+        // then initialize the actionbar again
+        initActionBar();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.d("On Start", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
                 +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
                 + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
 
@@ -374,7 +388,7 @@ public class MainActivity extends EnticementActivity
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
-        adapter.addFragment(new FeaturedFragment(), "Featured");
+        adapter.addFragment(new EventContainerFragment(), "Events");
         adapter.addFragment(new AroundFragment(), "Around");
         adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
         adapter.addFragment(new UpdatesFragment(), "Updates");

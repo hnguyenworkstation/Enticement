@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.greencode.enticement_android.ViewFragments.EventContainerFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:id="@+id/eventsfrag.scrolltabview"
+        android:background="@drawable/smalll_border"
+        android:paddingTop="1dp">
+
+        <com.greencode.enticement_android.UI.SlidingTabLayout
+            android:id="@+id/eventsfrag.scrolltab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sticker_tab_height"
+            android:measureAllChildren="false" />
+    </RelativeLayout>
+
+    <com.greencode.enticement_android.UI.CustomViewpager
+        android:id="@+id/eventsfrag.viewpager"
+        android:layout_below="@id/eventsfrag.scrolltabview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" />
+
+</RelativeLayout>
