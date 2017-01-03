@@ -75,7 +75,7 @@
             android:layout_width="@dimen/chat_input"
             android:layout_height="@dimen/chat_input"
             android:background="@drawable/circle_button_null_background"
-            android:src="@drawable/ic_smiley"/>
+            android:src="@drawable/ic_photo_black_24dp"/>
 
         <ImageButton
             android:id="@+id/postfeed.camera"

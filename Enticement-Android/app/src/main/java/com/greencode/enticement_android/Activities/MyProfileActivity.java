@@ -1,6 +1,5 @@
 package com.greencode.enticement_android.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Interpolator;
 
@@ -10,19 +9,15 @@ import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cengalabs.flatui.views.FlatButton;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
+import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.UI.CircleTransformation;
 import com.greencode.enticement_android.ViewFragments.ProfileImageTabFragment;
@@ -34,7 +29,6 @@ import com.greencode.enticement_android.UI.RevealBackground;
 /*
 * Credits goes to InstaMaterial
 * */
-
 public class MyProfileActivity extends EnticementActivity implements RevealBackground.OnStateChangeListener,
         ProfileImageTabFragment.OnFragmentInteractionListener {
     private RevealBackground mRevealBackground;
@@ -46,11 +40,15 @@ public class MyProfileActivity extends EnticementActivity implements RevealBackg
     private TabLayout mTabLayout;
     private ImageView mProfilePhoto;
     private View  mProfileDetails;
-    private Button mFollowBtn;
+    private FlatButton mEditBtn;
     private View mProfileStats;
     private View mProfileRoot;
     private ViewPager mViewPager;
     private ViewPagerAdapter mViewPagerAdapter;
+
+    private TextView mUsername;
+    private TextView mNickname;
+    private TextView mStatus;
 
     private int avatarSize;
     private String profilePhoto;
@@ -65,10 +63,14 @@ public class MyProfileActivity extends EnticementActivity implements RevealBackg
         mTabLayout = (TabLayout) findViewById(R.id.myprofile_tablayout);
         mProfilePhoto = (ImageView) findViewById(R.id.myprofile_avatar);
         mProfileDetails = findViewById(R.id.myprofile_details);
-        mFollowBtn = (Button) findViewById(R.id.myprofile_btn);
+        mEditBtn = (FlatButton) findViewById(R.id.myprofile_editbtn);
         mProfileStats = findViewById(R.id.myprofile_statsview);
         mProfileRoot = findViewById(R.id.myprofile_profileroot);
         mViewPager = (ViewPager) findViewById(R.id.myprofile_viewpager);
+
+        mUsername = (TextView) findViewById(R.id.myprofile_username);
+        mNickname = (TextView) findViewById(R.id.myprofile_nickname);
+        mStatus = (TextView) findViewById(R.id.myprofile_status);
 
         this.avatarSize = getResources().getDimensionPixelSize(R.dimen.profile_avatar_size);
 
@@ -82,9 +84,20 @@ public class MyProfileActivity extends EnticementActivity implements RevealBackg
 
         if (mViewPager != null)
             setupViewPager(mViewPager);
+
+        initInterface();
+        setupRevealBackground(savedInstanceState);
+    }
+
+    private void initInterface() {
         setupTabs();
         setupUserProfileGrid();
-        setupRevealBackground(savedInstanceState);
+        setupUserHeaderInfor();
+    }
+
+    private void setupUserHeaderInfor() {
+        mUsername.setText(EnticementApplication.getInstance().getPrefManager().getProfile().getName());
+        mNickname.setText(EnticementApplication.getInstance().getPrefManager().getProfile().getNickname());
     }
 
     private void setupViewPager(ViewPager viewPager) {

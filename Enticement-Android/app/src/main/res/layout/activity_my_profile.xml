@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -63,34 +64,36 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/myprofile.username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="John Smith"
+                                android:text="Hung"
                                 android:textColor="#ffffff"
                                 android:textSize="24sp" />
 
                             <TextView
+                                android:id="@+id/myprofile.nickname"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="\@jsmith"
+                                android:text="\@admin"
                                 android:textColor="#bbbbbb"
                                 android:textSize="12sp" />
 
                             <TextView
+                                android:id="@+id/myprofile.status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Mobile development passionate."
                                 android:textColor="#ffffff"
                                 android:textSize="12sp" />
 
-                            <Button
-                                android:id="@+id/myprofile.btn"
+                            <com.cengalabs.flatui.views.FlatButton
+                                android:id="@+id/myprofile.editbtn"
                                 android:layout_width="match_parent"
                                 android:layout_height="24dp"
                                 android:layout_marginRight="24dp"
                                 android:layout_marginTop="8dp"
-                                android:background="@drawable/circle_notification"
-                                android:text="following"
+                                android:text="Edit Profile"
                                 android:textColor="#ffffff"
                                 android:textSize="12sp" />
 

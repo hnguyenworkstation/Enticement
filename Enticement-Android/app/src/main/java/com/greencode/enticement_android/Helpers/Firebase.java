@@ -97,17 +97,22 @@ public class Firebase {
                 * - user name
                 * - user nickname
                 * */
-
-                mInstance.getProfile().setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
-                mInstance.getProfile().setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
-                mInstance.getProfile().setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
-                mInstance.getProfile().setId(dataSnapshot.child(USER_ID).getValue().toString());
-                mInstance.getProfile().setName(dataSnapshot.child(USER_NAME).getValue().toString());
-                mInstance.getProfile().setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
-                mInstance.getProfile().setId(mFBAuth.getCurrentUser().getUid());
+                MyProfile newProf = new MyProfile();
+                newProf.setBirthday(dataSnapshot.child(USER_BIRTHDAY).getValue().toString());
+                newProf.setCreated_at(dataSnapshot.child(USER_CREATEDAT).getValue().toString());
+                newProf.setEmail(dataSnapshot.child(USER_EMAIL).getValue().toString());
+                newProf.setId(dataSnapshot.child(USER_ID).getValue().toString());
+                newProf.setName(dataSnapshot.child(USER_NAME).getValue().toString());
+                newProf.setNickname(dataSnapshot.child(USER_NICKNAME).getValue().toString());
+                newProf.setId(mFBAuth.getCurrentUser().getUid());
                 // newProfile.setProfile_url(dataSnapshot.child(USER_PROFILEURL).getValue().toString());
+                mInstance.setProfile(newProf);
 
-                Log.d("Lo: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                Log.d("On Data", "Name: " +  newProf.getName()
+                        +  "\nNickname: " + newProf.getNickname()
+                        + "\nUID:" + newProf.getId());
+
+                Log.d("Firebase ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
                         +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
                         + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
             }
@@ -126,17 +131,17 @@ public class Firebase {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri dbURI = taskSnapshot.getDownloadUrl();
 
-                assert dbURI != null;
-                EnticementApplication.getInstance().getPrefManager()
-                        .getProfile().setProfile_url(dbURI.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+            assert dbURI != null;
+            EnticementApplication.getInstance().getPrefManager()
+                    .getProfile().setProfile_url(dbURI.toString());
+        }
+    }).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    });
+}
 
     public static void createChatroom(String withID) {
         Map<String, Object> mapChatroom = new HashMap<>();
@@ -150,14 +155,6 @@ public class Firebase {
 
         ChatRoom newChatroom = new ChatRoom(tempID, id, withID, "", "", String.valueOf(System.currentTimeMillis()));
         ChatRoomRef.child(tempID).setValue(newChatroom);
-    }
-
-    public static List<ChatRoom> retrieveChatRooms() {
-        List<ChatRoom> list = new ArrayList<>();
-
-
-
-        return list;
     }
 
     public static void getUserProfileToChatRoom(ChatRoom room) {

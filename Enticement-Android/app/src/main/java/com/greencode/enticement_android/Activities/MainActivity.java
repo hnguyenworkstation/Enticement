@@ -109,8 +109,7 @@ public class MainActivity extends EnticementActivity
 
         // fetch data from server
         receiveDataFromServer();
-
-        Log.d("Main Activity: ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+        Log.d("On Create ", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
                 +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
                 + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
 
@@ -164,6 +163,7 @@ public class MainActivity extends EnticementActivity
         mToolbar = (Toolbar) findViewById(R.id.mainact_toolbar);
         setSupportActionBar(mToolbar);
 
+        // then initialize the actionbar again
         initActionBar();
 
         mTabLayout = (TabLayout) findViewById(R.id.mainact_tablayout);
@@ -186,6 +186,33 @@ public class MainActivity extends EnticementActivity
 
         // Gettting user list
         Firebase.receiveUsersList();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        // fetch data from server
+        receiveDataFromServer();
+
+        Log.d("On Resume", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
+
+        // then initialize the actionbar again
+        initActionBar();
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        Log.d("On Restart", "Name: " +  EnticementApplication.getInstance().getPrefManager().getProfile().getName()
+                +  "\nNickname: " + EnticementApplication.getInstance().getPrefManager().getProfile().getNickname()
+                + "\nUID:" + EnticementApplication.getInstance().getPrefManager().getProfile().getId());
+
+        // then initialize the actionbar again
+        initActionBar();
     }
 
     @Nullable
@@ -325,7 +352,9 @@ public class MainActivity extends EnticementActivity
         });
 
         mActionProfileName = (TextView) v.findViewById(R.id.actionbar_profilename);
+        mActionProfileName.setText(EnticementApplication.getInstance().getPrefManager().getProfile().getName());
         mActionProfileNickname = (TextView) v.findViewById(R.id.actionbar_nickname);
+        mActionProfileNickname.setText(EnticementApplication.getInstance().getPrefManager().getProfile().getNickname());
 
         actionBar.setCustomView(v);
     }

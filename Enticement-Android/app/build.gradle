@@ -63,6 +63,7 @@ dependencies {
     compile 'com.github.eluleci:flatui:3.0.0'
     compile 'info.hoang8f:android-segmented:1.0.6'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.library.tangxiaolv:telegramgallery:1.0.2'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

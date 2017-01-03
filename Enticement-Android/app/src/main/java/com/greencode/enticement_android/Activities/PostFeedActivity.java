@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.R;
+import com.tangxiaolv.telegramgallery.GalleryActivity;
+import com.tangxiaolv.telegramgallery.GalleryConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostFeedActivity extends EnticementActivity implements View.OnClickListener {
     private final String TAG = "New Event";
@@ -44,6 +50,10 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
     private TextView mainTopicTv;
     private EditText postMessageEt;
 
+    private GalleryConfig galleryConfig;
+    private List<String> photos;
+    private List<String> videos;
+
     private static final int GALLERY_REQUEST = 1;
     private static final int CAMERA_REQUEST = 2;
     private static final int LOCATION_REQUEST = 3;
@@ -53,6 +63,9 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_feed);
+
+        photos = new ArrayList<>();
+        videos = new ArrayList<>();
 
         setupToolbar();
         initElements();
@@ -119,6 +132,7 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.postfeed_gallery:
+                openGallery();
                 break;
             case R.id.postfeed_location:
                 openLocationIntent();
@@ -131,6 +145,16 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
             default:
                 break;
         }
+    }
+
+    private void openGallery() {
+        galleryConfig = new GalleryConfig.Build()
+                .limitPickPhoto(9)
+                .singlePhoto(false)
+                .hintOfPick("GALLERY")
+                .filterMimeTypes(new String[]{"image/jpeg/mp4"})
+                .build();
+        GalleryActivity.openActivity(PostFeedActivity.this, GALLERY_REQUEST, galleryConfig);
     }
 
     private void openLocationIntent(){
@@ -153,6 +177,13 @@ public class PostFeedActivity extends EnticementActivity implements View.OnClick
                     //PLACE IS NULL
                 }
             }
+        } else if (requestCode == GALLERY_REQUEST) {
+            //list of photos of seleced
+            photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+            //list of videos of seleced
+            videos = (List<String>) data.getSerializableExtra(GalleryActivity.VIDEO);
+
+            Log.d("Post Feed", "Photos Picked: " + photos.size() + "\nVideos Picked: " + videos.size());
         }
     }
 

@@ -75,6 +75,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greencode.enticement_android.Activities.MainActivity" />
         </activity>
+
+        <!-- CUSTOM ACTIVITY-->
+        <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
     </application>
 
 </manifest>
