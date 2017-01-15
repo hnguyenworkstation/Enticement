@@ -1,12 +1,9 @@
 package com.greencode.enticement_android.Activities;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,25 +14,15 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
-import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.LayoutControllers.MessagesAdapter;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.R;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import vc908.stickerfactory.StickersKeyboardController;
 import vc908.stickerfactory.StickersManager;
@@ -43,7 +30,6 @@ import vc908.stickerfactory.ui.OnStickerSelectedListener;
 import vc908.stickerfactory.ui.fragment.StickersFragment;
 import vc908.stickerfactory.ui.view.BadgedStickersButton;
 import vc908.stickerfactory.ui.view.StickersKeyboardLayout;
-import vc908.stickerfactory.utils.CompatUtils;
 import vc908.stickerpipe.gcmintegration.NotificationManager;
 
 public class ChatRoomActivity extends EnticementActivity {

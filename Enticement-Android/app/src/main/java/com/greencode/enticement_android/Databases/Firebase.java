@@ -1,4 +1,4 @@
-package com.greencode.enticement_android.Helpers;
+package com.greencode.enticement_android.Databases;
 
 import android.content.Context;
 import android.net.Uri;

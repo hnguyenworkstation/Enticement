@@ -3,7 +3,6 @@ package com.greencode.enticement_android.LayoutControllers;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,8 +13,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
-import com.greencode.enticement_android.Enticement.EnticementPreferenceManager;
-import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.R;
 

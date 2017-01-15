@@ -35,12 +35,10 @@ import android.widget.Toast;
 import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Helpers.AppUtils;
-import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.LayoutControllers.ViewPagerAdapter;
 import com.greencode.enticement_android.Models.DummyContent;
-import com.greencode.enticement_android.Models.UserProfile;
 import com.greencode.enticement_android.R;
-import com.greencode.enticement_android.ViewFragments.EventContainerFragment;
 import com.greencode.enticement_android.ViewFragments.FeaturedFragment;
 import com.greencode.enticement_android.ViewFragments.GroupAroundFragment;
 import com.greencode.enticement_android.ViewFragments.ListChatroomFragment;
@@ -49,10 +47,6 @@ import com.greencode.enticement_android.ViewFragments.AroundFragment;
 import com.greencode.enticement_android.ViewFragments.PeopleAroundFragment;
 import com.greencode.enticement_android.ViewFragments.UpdatesFragment;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends EnticementActivity
         implements View.OnClickListener, FeaturedFragment.OnListFragmentInteractionListener,
             AroundFragment.OnFragmentInteractionListener,
@@ -60,8 +54,7 @@ public class MainActivity extends EnticementActivity
             UpdatesFragment.OnListFragmentInteractionListener,
             MoreFragment.OnFragmentInteractionListener,
             PeopleAroundFragment.OnListFragmentInteractionListener,
-            GroupAroundFragment.OnListFragmentInteractionListener,
-            EventContainerFragment.OnFragmentInteractionListener {
+            GroupAroundFragment.OnListFragmentInteractionListener {
 
     private ViewPager mViewPager;
     private View rootLayout;
@@ -388,7 +381,7 @@ public class MainActivity extends EnticementActivity
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(this.getBaseContext(), getSupportFragmentManager());
-        adapter.addFragment(new EventContainerFragment(), "Events");
+        adapter.addFragment(new FeaturedFragment(), "Events");
         adapter.addFragment(new AroundFragment(), "Around");
         adapter.addFragment(new ListChatroomFragment(), "Chatrooms");
         adapter.addFragment(new UpdatesFragment(), "Updates");

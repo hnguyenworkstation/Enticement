@@ -14,23 +14,19 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatButton;
 import com.greencode.enticement_android.Activities.MainActivity;
-import com.greencode.enticement_android.Enticement.EnticementActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
 import com.greencode.enticement_android.Enticement.EnticementPreferenceManager;
 import com.greencode.enticement_android.Helpers.AppUtils;
-import com.greencode.enticement_android.Helpers.Firebase;
-import com.greencode.enticement_android.Manifest;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ReviewRegFragment extends Fragment {

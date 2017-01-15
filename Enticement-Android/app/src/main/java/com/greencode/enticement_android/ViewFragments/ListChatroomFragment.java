@@ -13,16 +13,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.greencode.enticement_android.Activities.ChatRoomActivity;
-import com.greencode.enticement_android.Activities.TopicActivity;
 import com.greencode.enticement_android.Helpers.AppUtils;
-import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.LayoutControllers.MyChatRoomRecyclerViewAdapter;
 import com.greencode.enticement_android.Models.ChatRoom;
 import com.greencode.enticement_android.Models.DummyContent;

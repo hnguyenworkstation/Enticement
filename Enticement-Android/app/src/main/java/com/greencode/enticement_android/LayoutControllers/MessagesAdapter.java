@@ -1,26 +1,18 @@
 package com.greencode.enticement_android.LayoutControllers;
 
-import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.greencode.enticement_android.Activities.ChatRoomActivity;
-import com.greencode.enticement_android.Helpers.Firebase;
-import com.greencode.enticement_android.Interfaces.MessageClickListener;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.Models.Message;
 import com.greencode.enticement_android.R;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

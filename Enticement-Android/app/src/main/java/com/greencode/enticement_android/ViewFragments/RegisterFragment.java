@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,9 +21,8 @@ import com.cengalabs.flatui.views.FlatEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.greencode.enticement_android.Activities.MainActivity;
 import com.greencode.enticement_android.Enticement.EnticementApplication;
-import com.greencode.enticement_android.Helpers.Firebase;
+import com.greencode.enticement_android.Databases.Firebase;
 import com.greencode.enticement_android.Helpers.StringChecker;
 import com.greencode.enticement_android.R;
 
